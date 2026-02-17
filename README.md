@@ -1,18 +1,20 @@
 # Cybersecurity: Theory, Tools - L1
 
 ## About Me
-I am a Computer Science student at Habib University with strong foundations in operating systems, system design, programming, and research-driven projects. My academic work spans operating systems labs, database systems, graph data science, NLP research, and full-stack development.
+I am a Computer Science student at Habib University with a strong foundation in operating systems, system design, programming, and research-driven technical projects. My academic experience includes operating systems lab development, database systems, graph data science, and applied software engineering. I am particularly interested in system-level security and secure software practices.
 
 ## About This Repository
-This repository documents my learning and hands-on practice for the course Cybersecurity: Theory, Tools - L1. It includes structured notes, Linux-based experiments, networking exercises, and security-focused scripting tasks that build on my systems and software engineering background.
+This repository documents my structured learning and hands-on practice for the course Cybersecurity: Theory, Tools - L1. It serves as a technical log of experiments, labs, and security-focused exercises that build practical understanding alongside theoretical foundations.
 
-## Areas of Focus
-- Networking fundamentals and protocols
-- Linux systems and command-line operations
-- Operating system security concepts
-- Access control and authentication
-- Bash and Python scripting for security tasks
-- Practical cybersecurity tools and lab exercises
+## Cybersecurity Focus Areas
+- Networking fundamentals and protocol analysis  
+- Linux system security and permissions management  
+- Access control models and authentication mechanisms  
+- Threat modeling and attack surface analysis  
+- Basic vulnerability assessment concepts  
+- Secure coding principles  
+- Bash and Python scripting for security tasks  
+- Hands-on use of security tools in lab environments  
 
 ## Objective
-To strengthen my systems-level understanding of security and build practical experience with defensive and analytical security tools.
+To strengthen my understanding of defensive security, system hardening, and vulnerability analysis while building practical skills applicable to real-world cybersecurity engineering.
