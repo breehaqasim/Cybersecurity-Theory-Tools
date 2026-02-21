@@ -18,3 +18,19 @@ I look at what could happen if someone outside tries to attack the system and wh
 - Payment Service (payment orchestration and processing)
 - Webhook Handler (receives payment confirmation callbacks)
 - Admin Service (refund approvals, dispute handling)
+
+**Data Storage (Private Zone)**
+- User Database (accounts, credentials)
+- Merchant Database (roles, API credentials)
+- Transaction/Billing Database (orders, payments, refunds)
+- Audit Log Store (immutable logs)
+
+**External Integrations**
+- Payment Processor API (authorization, capture, tokenization)
+- Core Banking System (settlement and reconciliation)
+- Notification Service (email/SMS)
+
+**Admin Access Paths**
+- Admin Portal accessible only through VPN or Zero Trust Network Access (ZTNA)
+- Multi-factor authentication required
+- Separate privilege plane from customer APIs
