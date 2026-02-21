@@ -34,3 +34,15 @@ I look at what could happen if someone outside tries to attack the system and wh
 - Admin Portal accessible only through VPN or Zero Trust Network Access (ZTNA)
 - Multi-factor authentication required
 - Separate privilege plane from customer APIs
+
+### Users and roles
+```md
+| Role | Description |
+|------|-----|
+| Customer  | Initiates payments |
+| Merchant   | Views transactions and requests refunds |
+| Support Agent   | Limited customer support |
+| Finance Admin   | Approves refunds and settlements |
+| System Administrator   | Infrastructure management |
+| External Attacker | Internet-based adversary |
+| Insider Threat   | Malicious internal user |
