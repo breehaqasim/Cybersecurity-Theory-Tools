@@ -6,7 +6,7 @@ The system is set up in layers and can work with any cloud it also connects to a
 
 I look at what could happen if someone outside tries to attack the system and what could happen if someone inside tries to cause trouble so the system is safe and secure and I think about the payment system a lot to make sure it is really secure.
 
-## Task 1 — System Definition and Architecture
+## Task 1. System Definition and Architecture 
 ### Application Components
 **Frontend**
 - Customer Web Application (checkout, order history)
