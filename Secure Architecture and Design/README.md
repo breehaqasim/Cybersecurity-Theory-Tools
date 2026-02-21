@@ -46,3 +46,4 @@ I look at what could happen if someone outside tries to attack the system and wh
 | System Administrator   | Infrastructure management |
 | External Attacker | Internet-based adversary |
 | Insider Threat   | Malicious internal user |
+```
