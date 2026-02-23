@@ -1,16 +1,22 @@
 # Secure Architecture and OWASP-Based Threat Modeling of an Online Payment Processing Application
-## System Overview
-I made this system so customers can pay merchants online. It also helps with other tasks like giving refunds solving problems and sorting out money issues.
-
-The system is set up in layers and can work with any cloud it also connects to a payment processor and a core banking system inside. Since the system deals with financial information I make sure that it is private, accurate, available and responsible.
-
-I look at what could happen if someone outside tries to attack the system and what could happen if someone inside tries to cause trouble so the system is safe and secure and I think about the payment system a lot to make sure it is really secure.
-
 ## Task 1. System Definition and Architecture 
+### System Overview
+This system helps customers pay merchants online in a way. It allows for payment checks, refunds and handling problems with payments. It also helps with getting payments settled with banks.
+
+The design is layered. Can work with different cloud systems. It connects with a payment processor and a core banking system. The platform deals with money and personal info so it is built to make sure:
+- Confidentiality (protection of sensitive data)
+- Integrity (accurate transaction processing)
+- Availability (continuous payment operations)
+- Accountability (auditability of financial actions)
+
+Both external threats (internet-based attacks) and insider threats (misuse of administrative privileges) are considered in the architecture.
+
 ### Application Components
 **Frontend**
-- Customer Web Application (checkout, order history)
-- Merchant Portal (transaction and settlement viewing)
+- Customer Web Application (checkout, order history, payment status)
+- Merchant Portal (transaction viewing, refund requests, settlement reports)
+- Admin Portal (refund approvals, dispute handling, monitoring dashboards)
+All frontend applications communicate with backend services over HTTPS.
 
 **Backend Services**
 - API Gateway (authentication, rate limiting, request validation)
