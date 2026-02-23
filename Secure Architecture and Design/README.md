@@ -18,39 +18,32 @@ Both external threats (internet-based attacks) and insider threats (misuse of ad
 - Admin Portal (refund approvals, dispute handling, monitoring dashboards)
 All frontend applications communicate with backend services over HTTPS.
 
-<!--
-Source - https://stackoverflow.com/q/11509830
-Posted by Dave Dopson, modified by community. See post 'Timeline' for change history
-Retrieved 2026-02-23, License - CC BY-SA 4.0
--->
-
-<font color="green"> Some green text </font>
-
 **Backend Services**
-- API Gateway (authentication, rate limiting, request validation)
-- API Backend (business logic)
-- Payment Service (payment orchestration and processing)
-- Webhook Handler (receives payment confirmation callbacks)
-- Admin Service (refund approvals, dispute handling)
+- API Gateway (authentication, authorization, rate limiting, request validation, entry point for all external traffic)
+- API Backend (business logic, order management, validation rules)
+- Payment Service (payment orchestration, token handling, communication with payment processor)
+- Webhook Handler (receives payment confirmation callbacks, updates transaction state)
+- Admin Service (refund approvals, dispute handling, financial adjustments)
 
 **Data Storage (Private Zone)**
-- User Database (accounts, credentials)
-- Merchant Database (roles, API credentials)
-- Transaction/Billing Database (orders, payments, refunds)
-- Audit Log Store (immutable logs)
+All databases are located in a restricted internal network zone.
+- User Database (customer accounts, credentials)
+- Merchant Database (merchant profiles, API credentials)
+- Transaction/Billing Database (orders, payments, refunds records, settlement details)
+- Audit Log Store (immutable logs, security events, administrative actions)
 
 **External Integrations**
-- Payment Processor API (authorization, capture, tokenization)
+- Payment Processor API (authorization, capture, tokenization, payment confirmation callbacks)
 - Core Banking System (settlement and reconciliation)
-- Notification Service (email/SMS)
+- Notification Service (email/SMS alerts)
 
 **Admin Access Paths**
-- Admin Portal accessible only through VPN or Zero Trust Network Access (ZTNA)
+- Admin Portal accessible only through VPN
 - Multi-factor authentication required
 - Separate privilege plane from customer APIs
+- Strict role-based access control
 
 ### Users and Roles
-
 | Role                  | Description                                      |
 |-----------------------|--------------------------------------------------|
 | Customer              | Initiates payments and views order history       |
@@ -60,3 +53,23 @@ Retrieved 2026-02-23, License - CC BY-SA 4.0
 | System Administrator  | Manages infrastructure and deployments           |
 | External Attacker     | Internet-based adversary attempting exploitation |
 | Insider Threat        | Malicious or compromised internal user           |
+
+Administrative roles have elevated access and require additional controls.
+
+### Data Types Handled
+| Data Type               | Sensitivity Level        |
+|-------------------------|--------------------------|
+| Credit Card Data        | 🔴 Highly Sensitive       |
+| Payment Tokens          | 🔴 Highly Sensitive       |
+| Customer Personal Data  | 🟡 Sensitive              |
+| Merchant Credentials    | 🔴 Highly Sensitive       |
+| Transaction Records     | 🟡 Sensitive              |
+| JWT / Session Tokens    | 🟡 Sensitive              |
+| Audit Logs              | 🟠 Moderate to Sensitive  |
+
+### High-Level Architecture Diagram (Logical View)
+Below is the logical architecture of the system:
+
+
+
+
