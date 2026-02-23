@@ -17,7 +17,7 @@ Both external threats (internet-based attacks) and insider threats (misuse of ad
 - Merchant Portal (transaction viewing, refund requests, settlement reports)
 - Admin Portal (refund approvals, dispute handling, monitoring dashboards)
 All frontend applications communicate with backend services over HTTPS.
-
+<code style="color : name_color">text</code>
 **Backend Services**
 - API Gateway (authentication, rate limiting, request validation)
 - API Backend (business logic)
