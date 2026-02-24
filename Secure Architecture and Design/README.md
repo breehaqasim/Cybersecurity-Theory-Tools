@@ -83,9 +83,7 @@ Below is the logical architecture of the system:
 | TB6 | Payment Processor ↔ Webhook Handler | External Callback Boundary | The Webhook Handler receives inbound payment confirmation callbacks from the Payment Processor. | Represents a secondary external entry point that must validate inbound data before updating transactions. |
 
 ## Task 2. Asset Identification and Security Objectives 
-
 ### Asset Inventory Table
-
 | Asset ID | Asset Name | Category | Description | Location | Sensitivity |
 |----------|------------|----------|-------------|----------|------------|
 | A1 | User Credentials | Credentials | Customer login data (username, hashed password) | User Database | High |
@@ -101,3 +99,18 @@ Below is the logical architecture of the system:
 | A11 | JWT / Session Tokens | Authentication Data | Session identifiers used for user authentication | API Gateway | High |
 | A12 | Payment Processor API Contract | External Integration | Communication interface with third-party processor | Payment Service | High |
 
+### Mapping of Assets to Security Objectives (CIAA)
+| Asset ID | Asset Name | Confidentiality | Integrity | Availability | Accountability |
+|----------|------------|----------------|-----------|-------------|---------------|
+| A1 | User Credentials | ✔ Required | ✔ Required | ✔ Required | ✔ Required |
+| A2 | Merchant API Credentials | ✔ Required | ✔ Required | ✔ Required | ✔ Required |
+| A3 | Admin Credentials | ✔ Required | ✔ Required | ✔ Required | ✔ Required |
+| A4 | Credit Card Data | ✔ Critical | ✔ Critical | ✔ Required | ✔ Required |
+| A5 | Payment Tokens | ✔ Critical | ✔ Required | ✔ Required | ✔ Required |
+| A6 | Transaction Records | ✔ Required | ✔ Critical | ✔ Critical | ✔ Required |
+| A7 | Customer Personal Data | ✔ Required | ✔ Required | ✔ Required | Optional |
+| A8 | Merchant Profile Data | ✔ Required | ✔ Required | ✔ Required | Optional |
+| A9 | Business Logic | ✔ Required | ✔ Critical | ✔ Critical | Optional |
+| A10 | Audit Logs | ✔ Required | ✔ Critical | ✔ Required | ✔ Critical |
+| A11 | JWT / Session Tokens | ✔ Critical | ✔ Required | ✔ Required | ✔ Required |
+| A12 | Payment Processor API Contract | ✔ Required | ✔ Critical | ✔ Critical | Optional |
