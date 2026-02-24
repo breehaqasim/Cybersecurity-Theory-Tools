@@ -131,3 +131,9 @@ Below is the logical architecture of the system:
 | 19 | API Communication | Information Disclosure | Data Flow | Data Flow Sniffing | Data transmitted over the data flow may be sniffed by an attacker. | Exposure of tokens or sensitive financial data. | High | Cross-boundary communication increases exposure surface. |
 | 20 | API Communication | Denial of Service | API Gateway | Potential Process Crash or Stop for API Gateway | API Gateway process may crash or stop. | Service unavailability for all users. | High | Single entry point; DoS affects entire platform availability. |
 | 13 | API Communication | Denial of Service | Webhook Handler | Potential Excessive Resource Consumption for Webhook Handler or Transaction/Billing Database | Webhook handler may consume excessive resources. | Delayed payment confirmations and settlement issues. | High | Payment lifecycle depends on webhook reliability. |
+
+### Threat diagram
+![Threat Diagram](threat%20diagram.png)
+
+
+
