@@ -186,20 +186,21 @@ Security controls were added at multiple layers: edge (WAF), identity (IdP + MFA
 | 20 | API Gateway Denial of Service | High | Mitigate + Transfer | Use WAF rate limiting + cloud DDoS protection (transfer to cloud provider). | Large-scale volumetric DDoS may still degrade performance. |
 | 13 | Webhook Handler Resource Exhaustion | High | Mitigate | Rate limiting + resource quotas + autoscaling. | Extreme traffic spikes may still cause delays. |
 
-### Residual risk explanation
-Even after implementing architectural mitigation controls, some risks remain due to inherent limitations in complex systems and external dependencies.
+### Residual Risk Explanation
 
-### Sources of Residual Risk
+Although high-risk threats have been mitigated through architectural controls, some residual risk remains due to systemic and external factors that cannot be fully eliminated.
 
-1. **Human factors** – Social engineering, phishing attacks, and credential reuse may still compromise user or administrator accounts despite strong authentication controls.
+#### Primary Residual Risk Drivers
 
-2. **Insider threat** – Privileged users (e.g., administrators or operations personnel) may intentionally or unintentionally misuse access rights.
+1. **Human and behavioral risk** – User behavior, social engineering, and administrative misuse remain outside complete technical control.
 
-3. **Configuration errors** – Security controls such as RBAC policies, logging configurations, or network rules require continuous maintenance. Misconfigurations may weaken protections.
+2. **Configuration and operational risk** – Security mechanisms such as RBAC, logging, and network policies require ongoing maintenance and may degrade if misconfigured.
 
-4. **Third-party dependency risk** – External integrations such as payment processors and cloud service providers introduce dependency risk outside direct organizational control.
+3. **Third-party dependency risk** – The system depends on external payment processors and cloud infrastructure providers whose internal controls are not fully visible.
 
-5. **Zero-day vulnerabilities** – Previously unknown vulnerabilities in frameworks, libraries, or infrastructure components may bypass existing protections.
+4. **Advanced or unknown threats** – Zero-day vulnerabilities and novel attack techniques may bypass layered defenses.
+
+Residual risk is reduced to an acceptable operational level through defense-in-depth, continuous monitoring, and separation of privilege domains, but it cannot be eliminated entirely.
 
 ## Assumptions and Limitations
 
