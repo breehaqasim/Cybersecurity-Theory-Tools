@@ -83,4 +83,6 @@ Description: Frontend and Backend services are seperate from each other. Fronten
 Why It Is a Trust Boundary? Prevents direct database access. Enforces centralized routing and request validation. The presentation layer and the business logic are kept separate, from each other.
 
 **Trust Boundary 3 – Admin Access Path**
-Description: 
+Description: Administrative actions (refund approvals, disputes, financial adjustments) occur through a separate privilege plane. Although Admin Portal is part of frontend, it represents elevated access compared to Customer and Merchant.
+
+Why It Is a Trust Boundary?
