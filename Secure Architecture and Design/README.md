@@ -135,5 +135,37 @@ Below is the logical architecture of the system:
 ### Threat diagram
 ![Threat Diagram](threat%20diagram.png)
 
+## Task 4. Secure Architecture Design 
+![Secured Diagram](secured-high-level-diagram.png)
 
+### Identity and Access Management
+- **User IdP (OIDC/OAuth2)** centralizes login and token issuance for customers and merchants. This reduces identity spoofing risk and standardizes authentication.
+- **Admin IdP (MFA)** enforces stronger authentication for administrative access because admin compromise has the highest impact.
+- **RBAC/ABAC Policy Engine** ensures authorization is applied consistently across services and prevents privilege escalation or role bypass.
+
+### Network Segmentation
+- **WAF at the public edge** filters malicious traffic before it reaches core services.
+- **Private Services Zone** ensures backend services are not directly reachable from the internet.
+- **Private Data Zone** isolates databases so they are only accessible from backend services.
+- **Admin Plane separation (VPN → Admin Portal → Admin Service)** isolates administrative operations from the customer/merchant plane.
+
+### Data Protection
+- **TLS/HTTPS for client traffic and mTLS to payment processor** protects confidentiality and integrity of API communications.
+- **KMS/HSM encryption at rest** protects sensitive stored data in databases and logs.
+- **Immutable/WORM audit log store** prevents tampering and supports compliance, investigations, and non-repudiation.
+
+### Secrets Management
+- **Secrets Manager** stores and rotates credentials (DB creds, API keys, processor secrets) so they are not embedded in services or source code.
+
+### Monitoring and Logging
+- **Central Logging/SIEM** collects logs from gateway and services for detection and alerting.
+- **Audit log pipeline** ensures admin actions and payment events are recorded for accountability.
+
+### Secure Deployment Practices
+- **CI/CD security scans (SAST, dependency, image scans)** reduce the chance of deploying vulnerable builds.
+- **IaC policy checks** reduce misconfiguration risk in production.
+- **Signed artifacts + approval gate** provide deployment integrity and reduce the risk of unauthorized changes, especially in the admin plane.
+
+### Defense-in-Depth Summary
+Security controls were added at multiple layers: edge (WAF), identity (IdP + MFA), authorization (RBAC/ABAC), network (segmentation + admin plane), data (encryption + immutable logs), operations (SIEM), and deployment (secure CI/CD). This ensures no single control failure compromises the full system.
 
