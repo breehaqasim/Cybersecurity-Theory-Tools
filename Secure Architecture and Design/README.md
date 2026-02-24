@@ -70,7 +70,7 @@ Administrative roles have elevated access and require additional controls.
 
 ### High-Level Architecture Diagram (Logical View)
 Below is the logical architecture of the system:
-![High-Level Architecture Diagram](high%20level%20diagram.png)
+![High-Level Architecture Diagram](high-level-diagram.png)
 
 ### Trust Boundaries
 | Boundary ID | Between | Boundary Type | Description | Reasoning |
