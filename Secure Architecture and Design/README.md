@@ -1,4 +1,4 @@
-# Secure Architecture and OWASP-Based Threat Modeling of an Online Payment Processing Application
+# Secure Architecture and STRIDE-Based Threat Modeling of an Online Payment Processing Application
 ## Task 1. System Definition and Architecture 
 ### System Overview
 This system helps customers pay merchants online in a way. It allows for payment checks, refunds and handling problems with payments. It also helps with getting payments settled with banks.
