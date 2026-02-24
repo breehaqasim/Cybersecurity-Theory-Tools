@@ -71,5 +71,13 @@ Administrative roles have elevated access and require additional controls.
 Below is the logical architecture of the system:
 ![High-Level Architecture Diagram](high%20level%20diagram.png)
 
+### Trust Boundaries
+**Trust Boundary 1 – Internet ↔ Payment Platform**
+Description: This boundary seperates us from the rest. It is the line between public internet traffic and trusted internal production services. The people who use our website in our case are Merchant, Customer and Admin all start from outside where we make things. Any request that comes into our system has to go through the API Gateway. The API Gateway is like a door that everyone has to go through to get in. This is way to get into our system so we can keep an eye on what is happening. 
 
+Why It Is a Trust Boundary? This is because external attackers might try to enter data. Credentials and tokens are transmitted. Traffic moves, from a domain we do not trust into one we do trust.
 
+**Trust Boundary 2 – Frontend ↔ Backend Services**
+Description: Frontend and Backend services are seperate from each other. Frontend can access Database, Payment Service and Admin Service through API Gateway only.  
+
+Why It Is a Trust Boundary?  
