@@ -136,7 +136,7 @@ Below is the logical architecture of the system:
 ![Threat Diagram](threat%20diagram.png)
 
 ## Task 4. Secure Architecture Design 
-![Secured Diagram](secured-high-level-diagram.png)
+![Secured Diagram](secured-high.png)
 
 ### Identity and Access Management
 - **User IdP (OIDC/OAuth2)** centralizes login and token issuance for customers and merchants. This reduces identity spoofing risk and standardizes authentication.
