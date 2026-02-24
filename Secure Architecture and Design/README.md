@@ -80,4 +80,7 @@ Why It Is a Trust Boundary? This is because external attackers might try to ente
 **Trust Boundary 2 – Frontend ↔ Backend Services**
 Description: Frontend and Backend services are seperate from each other. Frontend can access Database, Payment Service and Admin Service through API Gateway only.  
 
-Why It Is a Trust Boundary?  
+Why It Is a Trust Boundary? Prevents direct database access. Enforces centralized routing and request validation. The presentation layer and the business logic are kept separate, from each other.
+
+**Trust Boundary 3 – Admin Access Path**
+Description: 
