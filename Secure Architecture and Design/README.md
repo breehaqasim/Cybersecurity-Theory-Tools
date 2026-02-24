@@ -83,5 +83,21 @@ Below is the logical architecture of the system:
 | TB6 | Payment Processor ↔ Webhook Handler | External Callback Boundary | The Webhook Handler receives inbound payment confirmation callbacks from the Payment Processor. | Represents a secondary external entry point that must validate inbound data before updating transactions. |
 
 ## Task 2. Asset Identification and Security Objectives 
- 
+
+### Asset Inventory Table
+
+| Asset ID | Asset Name | Category | Description | Location | Sensitivity |
+|----------|------------|----------|-------------|----------|------------|
+| A1 | User Credentials | Credentials | Customer login data (username, hashed password) | User Database | High |
+| A2 | Merchant API Credentials | Credentials | API keys and authentication data used by merchants | Merchant Database | High |
+| A3 | Admin Credentials | Credentials | Administrative login credentials and session tokens | User Database | High |
+| A4 | Credit Card Data | Financial Data | Card number, expiry, CVV (processed via payment service) | Payment Service / Transaction DB | Critical |
+| A5 | Payment Tokens | Financial Data | Tokenized representation of card data | Payment Service | High |
+| A6 | Transaction Records | Financial Data | Orders, payments, refunds, settlement data | Transaction/Billing Database | High |
+| A7 | Customer Personal Data | Personal Data | Name, email, phone, billing address | User Database | Medium |
+| A8 | Merchant Profile Data | Business Data | Merchant details, settlement preferences | Merchant Database | Medium |
+| A9 | Business Logic | Application Logic | Order validation, refund logic, settlement rules | API Backend / Admin Service | High |
+| A10 | Audit Logs | Logging Data | Immutable records of admin actions and system events | Audit Log Store | High |
+| A11 | JWT / Session Tokens | Authentication Data | Session identifiers used for user authentication | API Gateway | High |
+| A12 | Payment Processor API Contract | External Integration | Communication interface with third-party processor | Payment Service | High |
 
