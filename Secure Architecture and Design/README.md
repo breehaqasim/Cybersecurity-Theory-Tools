@@ -16,6 +16,7 @@ Both external threats (internet-based attacks) and insider threats (misuse of ad
 - Customer Web Application (checkout, order history, payment status)
 - Merchant Portal (transaction viewing, refund requests, settlement reports)
 - Admin Portal (refund approvals, dispute handling, monitoring dashboards)
+
 All frontend applications communicate with backend services over HTTPS.
 
 **Backend Services**
@@ -72,7 +73,6 @@ Below is the logical architecture of the system:
 ![High-Level Architecture Diagram](high%20level%20diagram.png)
 
 ### Trust Boundaries
-
 | Boundary ID | Between | Boundary Type | Description | Reasoning |
 |-------------|----------|--------------|-------------|-----------|
 | TB1 | Internet ↔ API Gateway | External Network Boundary | Separates untrusted public internet traffic from internal production services. All external requests must pass through the API Gateway. | Prevents direct access to backend systems and enforces authentication and validation at the entry point. |
