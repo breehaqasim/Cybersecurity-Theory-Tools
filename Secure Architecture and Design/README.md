@@ -114,3 +114,5 @@ Below is the logical architecture of the system:
 | A10 | Audit Logs | ✔ Required | ✔ Critical | ✔ Required | ✔ Critical |
 | A11 | JWT / Session Tokens | ✔ Critical | ✔ Required | ✔ Required | ✔ Required |
 | A12 | Payment Processor API Contract | ✔ Required | ✔ Critical | ✔ Critical | Optional |
+
+## Task 3. Threat Modeling 
