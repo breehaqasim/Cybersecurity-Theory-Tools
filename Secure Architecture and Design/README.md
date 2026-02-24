@@ -72,37 +72,6 @@ Below is the logical architecture of the system:
 ![High-Level Architecture Diagram](high%20level%20diagram.png)
 
 ### Trust Boundaries
-**Trust Boundary 1 – Internet ↔ Payment Platform**
-Description: This boundary seperates us from the rest. It is the line between public internet traffic and trusted internal production services. The people who use our website in our case are Merchant, Customer and Admin all start from outside where we make things. Any request that comes into our system has to go through the API Gateway. The API Gateway is like a door that everyone has to go through to get in. This is way to get into our system so we can keep an eye on what is happening. 
-
-Why It Is a Trust Boundary? This is because external attackers might try to enter data. Credentials and tokens are transmitted. Traffic moves, from a domain we do not trust into one we do trust.
-
-**Trust Boundary 2 – Frontend ↔ Backend Services**
-Description: Frontend and Backend services are seperate from each other. Frontend can access Database, Payment Service and Admin Service through API Gateway only.  
-
-Why It Is a Trust Boundary? Prevents direct database access. Enforces centralized routing and request validation. The presentation layer and the business logic are kept separate, from each other.
-
-**Trust Boundary 3 – Admin Access Path**
-Description: Administrative actions (refund approvals, disputes, financial adjustments) occur through a separate privilege plane. Although Admin Portal is part of frontend, it represents elevated access compared to Customer and Merchant.
-
-Why It Is a Trust Boundary? Admin roles have higher privileges. Administrative actions can modify financial records. Compromise of this boundary can lead to data integrity issues.
-
-**Trust Boundary 4 – Production Zone ↔ Data Storage Zone**
-Description: All databases are located in a restricted internal zone. Frontend applications and external integrations have no direct database access. Backend services access databases via controlled internal connections.
-
-Why It Is a Trust Boundary? Protects sensitive data. Limits exposure of storage layer. Prevents lateral movement from external actors.
-
-**Trust Boundary 5 – Production Zone ↔ External Integration Zone**
-Description: The Payment Processor and Core Banking System are external third-party systems not under direct organizational control. Communication occurs over secure APIs. Webhook callbacks re-enter the production environment via the Webhook Handler.
-
-Why It Is a Trust Boundary? External systems may be compromised. API contracts must be validated. Callback endpoints introduce inbound risk.
-
-**Trust Boundary 6 – Production Zone ↔ External Integration Zone**
-Description: The Webhook Handler receives inbound callbacks from the Payment Processor. This creates a secondary external entry point into the production system.
-
-Why It Is a Trust Boundary? Inbound traffic from external system. Potential spoofing or replay risks. Requires validation before updating transactions.
-
-## Trust Boundaries – Online Payment Processing System
 
 | Boundary ID | Between | Boundary Type | Description | Reasoning |
 |-------------|----------|--------------|-------------|-----------|
@@ -113,4 +82,6 @@ Why It Is a Trust Boundary? Inbound traffic from external system. Potential spoo
 | TB5 | Production Zone ↔ Payment Processor | Third-Party / External System Boundary | Communication between internal Payment Service and external Payment Processor API occurs across organizational boundaries. | External systems are not under direct control and introduce integration risk. |
 | TB6 | Payment Processor ↔ Webhook Handler | External Callback Boundary | The Webhook Handler receives inbound payment confirmation callbacks from the Payment Processor. | Represents a secondary external entry point that must validate inbound data before updating transactions. |
 
+## Task 2. Asset Identification and Security Objectives 
+ 
 
