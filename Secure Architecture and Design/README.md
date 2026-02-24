@@ -169,3 +169,93 @@ Below is the logical architecture of the system:
 ### Defense-in-Depth Summary
 Security controls were added at multiple layers: edge (WAF), identity (IdP + MFA), authorization (RBAC/ABAC), network (segmentation + admin plane), data (encryption + immutable logs), operations (SIEM), and deployment (secure CI/CD). This ensures no single control failure compromises the full system.
 
+## Task 5. Risk Treatment and Residual Risk 
+### Risk Treatment Table
+| Threat ID | Threat Title | Risk Level | Treatment Decision | Rationale | Residual Risk |
+|------------|-------------|------------|-------------------|------------|---------------|
+| 0 | Spoofing the Customer External Entity | High | Mitigate | Implement OIDC authentication, token validation, TLS, and WAF protections. | Residual risk remains due to possible credential theft or phishing outside system control. |
+| 1 | Elevation Using Impersonation (API Gateway) | High | Mitigate | Enforce token validation, RBAC/ABAC authorization, and gateway-level access control. | Misconfiguration risk remains if policies are incorrectly defined. |
+| 2 | Spoofing the Merchant External Entity | High | Mitigate | Use centralized authentication and signed API tokens for merchant requests. | Residual phishing or credential compromise risk remains externally. |
+| 4 | Spoofing the Admin External Entity | High | Mitigate | Enforce VPN + MFA + separate admin identity provider. | Insider threat or stolen MFA device risk remains. |
+| 5 | Spoofing of User Database | High | Mitigate | Restrict DB access to private subnet + TLS + KMS encryption. | Residual risk if internal network compromise occurs. |
+| 8 | Spoofing of Transaction/Billing Database | High | Mitigate | Private Data Zone + encryption at rest + strict service identity controls. | Risk remains in case of privileged insider abuse. |
+| 10 | Spoofing of Audit Log Database | High | Mitigate | Immutable/WORM audit storage + SIEM monitoring. | Residual risk if storage provider itself is compromised. |
+| 16 | Lack of Input Validation at API Gateway | High | Mitigate | WAF + gateway validation + strict request schema enforcement. | Zero-day input bypass techniques may still exist. |
+| 18 | Data Repudiation at API Gateway | High | Mitigate | Centralized logging + immutable logs + admin action tracing. | Logging gaps due to misconfiguration may persist. |
+| 19 | Data Flow Sniffing | High | Mitigate | TLS for all communications + mTLS for payment processor integration. | TLS misconfiguration risk remains. |
+| 20 | API Gateway Denial of Service | High | Mitigate + Transfer | Use WAF rate limiting + cloud DDoS protection (transfer to cloud provider). | Large-scale volumetric DDoS may still degrade performance. |
+| 13 | Webhook Handler Resource Exhaustion | High | Mitigate | Rate limiting + resource quotas + autoscaling. | Extreme traffic spikes may still cause delays. |
+
+### Residual risk explanation
+Even after implementing architectural mitigation controls, some risks remain due to inherent limitations in complex systems and external dependencies.
+
+### Sources of Residual Risk
+
+1. **Human factors** – Social engineering, phishing attacks, and credential reuse may still compromise user or administrator accounts despite strong authentication controls.
+
+2. **Insider threat** – Privileged users (e.g., administrators or operations personnel) may intentionally or unintentionally misuse access rights.
+
+3. **Configuration errors** – Security controls such as RBAC policies, logging configurations, or network rules require continuous maintenance. Misconfigurations may weaken protections.
+
+4. **Third-party dependency risk** – External integrations such as payment processors and cloud service providers introduce dependency risk outside direct organizational control.
+
+5. **Zero-day vulnerabilities** – Previously unknown vulnerabilities in frameworks, libraries, or infrastructure components may bypass existing protections.
+
+## Assumptions and Limitations
+
+### Assumptions
+
+The following assumptions were made during the design and threat modeling process:
+
+1. **Cloud Infrastructure Reliability**  
+   The underlying cloud infrastructure provider is assumed to provide secure physical data centers, network isolation, and baseline DDoS protection.
+
+2. **Secure Payment Processor**  
+   The external payment processor and core banking system are assumed to follow industry security standards and properly validate and sign callbacks (webhooks).
+
+3. **TLS Configuration is Properly Implemented**  
+   All external and internal communications are assumed to use correctly configured TLS with valid certificates.
+
+4. **Secure Key and Secret Storage**  
+   The Secrets Manager and KMS/HSM systems are assumed to be properly configured, access-controlled, and monitored.
+
+5. **Users Follow Security Best Practices**  
+   End users (customers, merchants, administrators) are assumed to protect their credentials and devices to a reasonable extent.
+
+6. **Administrative Controls Are Enforced**  
+   VPN access, MFA enforcement, RBAC policies, and approval gates are assumed to be correctly implemented and maintained.
+
+7. **Compliance Requirements Are Followed**  
+   Industry compliance standards (e.g., PCI DSS where applicable) are assumed to be followed for handling financial data.
+
+---
+
+### Limitations
+
+The threat model and architecture design have the following limitations:
+
+1. **High-Level Architectural Scope**  
+   The analysis focuses on architectural controls rather than detailed code-level vulnerabilities.
+
+2. **No Full Infrastructure Deep Dive**  
+   Low-level infrastructure components such as load balancers, container orchestration details, or operating system hardening were not modeled in depth.
+
+3. **Third-Party Systems Outside Direct Control**  
+   External services (payment processor, cloud provider, notification provider) are outside the system’s direct security control.
+
+4. **Zero-Day and Advanced Persistent Threats**  
+   Unknown vulnerabilities and highly sophisticated attackers may bypass implemented defenses.
+
+5. **Human Behavior Unpredictability**  
+   Insider threats and social engineering attacks cannot be fully eliminated through technical controls.
+
+6. **Operational Security Dependency**  
+   Security effectiveness depends on proper monitoring, alert response, and regular maintenance of controls.
+
+7. **Simplified Trust Boundary Representation**  
+   The trust boundaries shown in the diagram are conceptual and may differ in a real production deployment environment.
+
+---
+
+Despite these limitations, the proposed architecture significantly reduces the likelihood and impact of high-risk threats through layered security controls and defense-in-depth design principles.
+
