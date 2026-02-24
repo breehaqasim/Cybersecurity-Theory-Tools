@@ -85,4 +85,32 @@ Why It Is a Trust Boundary? Prevents direct database access. Enforces centralize
 **Trust Boundary 3 – Admin Access Path**
 Description: Administrative actions (refund approvals, disputes, financial adjustments) occur through a separate privilege plane. Although Admin Portal is part of frontend, it represents elevated access compared to Customer and Merchant.
 
-Why It Is a Trust Boundary?
+Why It Is a Trust Boundary? Admin roles have higher privileges. Administrative actions can modify financial records. Compromise of this boundary can lead to data integrity issues.
+
+**Trust Boundary 4 – Production Zone ↔ Data Storage Zone**
+Description: All databases are located in a restricted internal zone. Frontend applications and external integrations have no direct database access. Backend services access databases via controlled internal connections.
+
+Why It Is a Trust Boundary? Protects sensitive data. Limits exposure of storage layer. Prevents lateral movement from external actors.
+
+**Trust Boundary 5 – Production Zone ↔ External Integration Zone**
+Description: The Payment Processor and Core Banking System are external third-party systems not under direct organizational control. Communication occurs over secure APIs. Webhook callbacks re-enter the production environment via the Webhook Handler.
+
+Why It Is a Trust Boundary? External systems may be compromised. API contracts must be validated. Callback endpoints introduce inbound risk.
+
+**Trust Boundary 6 – Production Zone ↔ External Integration Zone**
+Description: The Webhook Handler receives inbound callbacks from the Payment Processor. This creates a secondary external entry point into the production system.
+
+Why It Is a Trust Boundary? Inbound traffic from external system. Potential spoofing or replay risks. Requires validation before updating transactions.
+
+## Trust Boundaries – Online Payment Processing System
+
+| Boundary ID | Between | Boundary Type | Description | Reasoning |
+|-------------|----------|--------------|-------------|-----------|
+| TB1 | Internet ↔ API Gateway | External Network Boundary | Separates untrusted public internet traffic from internal production services. All external requests must pass through the API Gateway. | Prevents direct access to backend systems and enforces authentication and validation at the entry point. |
+| TB2 | Frontend ↔ Backend Services | Application Layer Boundary | Frontend applications (Customer, Merchant, Admin portals) communicate with backend services only via the API Gateway. | Prevents direct database access and maintains separation between presentation and business logic layers. |
+| TB3 | Admin Portal ↔ Admin Service | Privilege Boundary | Administrative actions (refund approvals, dispute handling, financial adjustments) occur through a dedicated service layer. | Administrative roles have elevated privileges and can impact financial integrity. |
+| TB4 | Backend Services ↔ Data Storage | Data Storage Boundary | Databases are located in a restricted internal zone accessible only by backend services. | Protects sensitive information such as credentials, tokens, and transaction data from unauthorized access. |
+| TB5 | Production Zone ↔ Payment Processor | Third-Party / External System Boundary | Communication between internal Payment Service and external Payment Processor API occurs across organizational boundaries. | External systems are not under direct control and introduce integration risk. |
+| TB6 | Payment Processor ↔ Webhook Handler | External Callback Boundary | The Webhook Handler receives inbound payment confirmation callbacks from the Payment Processor. | Represents a secondary external entry point that must validate inbound data before updating transactions. |
+
+
