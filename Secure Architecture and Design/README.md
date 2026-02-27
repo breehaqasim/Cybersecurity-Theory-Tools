@@ -103,18 +103,18 @@ Below is the logical architecture of the system:
 ### Mapping of Assets to Security Objectives (CIAA)
 | Asset ID | Asset Name | Confidentiality | Integrity | Availability | Accountability |
 |----------|------------|----------------|-----------|-------------|---------------|
-| A1 | User Credentials | ✔ Required | ✔ Required | ✔ Required | ✔ Required |
-| A2 | Merchant API Credentials | ✔ Required | ✔ Required | ✔ Required | ✔ Required |
-| A3 | Admin Credentials | ✔ Required | ✔ Required | ✔ Required | ✔ Required |
-| A4 | Credit Card Data | ✔ Critical | ✔ Critical | ✔ Required | ✔ Required |
-| A5 | Payment Tokens | ✔ Critical | ✔ Required | ✔ Required | ✔ Required |
-| A6 | Transaction Records | ✔ Required | ✔ Critical | ✔ Critical | ✔ Required |
-| A7 | Customer Personal Data | ✔ Required | ✔ Required | ✔ Required | Optional |
-| A8 | Merchant Profile Data | ✔ Required | ✔ Required | ✔ Required | Optional |
-| A9 | Business Logic | ✔ Required | ✔ Critical | ✔ Critical | Optional |
-| A10 | Audit Logs | ✔ Required | ✔ Critical | ✔ Required | ✔ Critical |
-| A11 | JWT / Session Tokens | ✔ Critical | ✔ Required | ✔ Required | ✔ Required |
-| A12 | Payment Processor API Contract | ✔ Required | ✔ Critical | ✔ Critical | Optional |
+| A1 | User Credentials |  Required |  Required |  Required |  Required |
+| A2 | Merchant API Credentials |  Required |  Required |  Required |  Required |
+| A3 | Admin Credentials |  Required |  Required |  Required |  Required |
+| A4 | Credit Card Data |  Critical |  Critical |  Required |  Required |
+| A5 | Payment Tokens |  Critical |  Required |  Required |  Required |
+| A6 | Transaction Records |  Required |  Critical |  Critical |  Required |
+| A7 | Customer Personal Data |  Required |  Required |  Required | Optional |
+| A8 | Merchant Profile Data |  Required |  Required |  Required | Optional |
+| A9 | Business Logic |  Required |  Critical |  Critical | Optional |
+| A10 | Audit Logs |  Required |  Critical |  Required |  Critical |
+| A11 | JWT / Session Tokens |  Critical |  Required |  Required |  Required |
+| A12 | Payment Processor API Contract |  Required |  Critical |  Critical | Optional |
 
 ## Task 3. Threat Modeling 
 ### Threat Model Table
