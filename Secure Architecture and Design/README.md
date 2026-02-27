@@ -116,7 +116,11 @@ Below is the logical architecture of the system:
 | A11 | JWT / Session Tokens |  Critical |  Required |  Required |  Required |
 | A12 | Payment Processor API Contract |  Required |  Critical |  Critical | Optional |
 
-## Task 3. Threat Modeling 
+## Task 3. Threat Modeling
+
+### Threat diagram - STRIDE
+![Threat Diagram](tmt.png)
+
 ### Threat Model Table
 | ID | Threat Area | STRIDE Category | Affected Component | Threat Title | Description | Impact | Risk Level | Risk Reasoning |
 |----|------------|----------------|-------------------|--------------|-------------|--------|------------|---------------|
@@ -134,9 +138,6 @@ Below is the logical architecture of the system:
 | 20 | API Communication | Denial Of Service | Webhook Handler / Transaction/Billing Database | Potential Excessive Resource Consumption for Webhook Handler or Transaction/Billing Database | Does Webhook Handler or Transaction/Billing Database take explicit steps to control resource consumption? | Delayed payment confirmation and settlement failures. | High | Payment lifecycle depends on reliable webhook processing. |
 
 full table: [https://docs.google.com/spreadsheets/d/15fLBQAJtGv38hJL31u_i30fp6wd0mQ4Szm5_EjuBMcs/edit?usp=sharing]
-
-### Threat diagram - STRIDE
-![Threat Diagram](tmt.png)
 
 ## Task 4. Secure Architecture Design 
 ![Secured Diagram](secured-high.png)
