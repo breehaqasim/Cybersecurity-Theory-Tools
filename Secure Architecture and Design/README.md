@@ -46,15 +46,14 @@ All databases are located in a restricted internal network zone.
 - Strict role-based access control
 
 ### Users and Roles
-| Role                  | Description                                      |
-|-----------------------|--------------------------------------------------|
-| Customer              | Initiates payments and views order history       |
-| Merchant              | Views transactions and requests refunds          |
-| Support Agent         | Provides limited customer support assistance     |
-| Finance Admin         | Approves refunds and manages settlements         |
-| System Administrator  | Manages infrastructure and deployments           |
-| External Attacker     | Internet-based adversary attempting exploitation |
-| Insider Threat        | Malicious or compromised internal user           |
+| Role                 | Description |
+|----------------------|-------------|
+| Customer             | Uses the Customer Web App to initiate payments and view order history. |
+| Merchant             | Uses the Merchant Portal to view transactions and request refunds. |
+| Application Admin    | Uses the Admin Portal to manage operational tasks through the Admin Service. |
+| System Administrator | Manages infrastructure, CI/CD pipeline, deployment approvals, and security services. |
+| External Attacker    | Internet-based adversary attempting to exploit public-facing components. |
+| Insider Threat       | Malicious or compromised internal user with legitimate access. |
 
 Administrative roles have elevated access and require additional controls.
 
