@@ -135,7 +135,7 @@ Below is the logical architecture of the system:
 
 full table: [https://docs.google.com/spreadsheets/d/19GUuT_pfeCqj_SygqRstEMSVBlQKtaSB6fgJTf5cnRs/edit?usp=sharing]
 
-### Threat diagram
+### Threat diagram - STRIDE
 ![Threat Diagram](threat%20diagram.png)
 
 ## Task 4. Secure Architecture Design 
