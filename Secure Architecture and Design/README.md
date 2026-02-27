@@ -187,6 +187,7 @@ Security controls were added at multiple layers: edge (WAF), identity (IdP + MFA
 | 20 | API Gateway Denial of Service | High | Mitigate + Transfer | Use WAF rate limiting + cloud DDoS protection (transfer to cloud provider). | Large-scale volumetric DDoS may still degrade performance. |
 | 13 | Webhook Handler Resource Exhaustion | High | Mitigate | Rate limiting + resource quotas + autoscaling. | Extreme traffic spikes may still cause delays. |
 
+full table: [https://docs.google.com/spreadsheets/d/19GUuT_pfeCqj_SygqRstEMSVBlQKtaSB6fgJTf5cnRs/edit?usp=sharing]
 ### Residual Risk Explanation
 
 Although high-risk threats have been mitigated through architectural controls, some residual risk remains due to systemic and external factors that cannot be fully eliminated.
@@ -211,22 +212,16 @@ The following assumptions were made during the design and threat modeling proces
 
 1. **Cloud Infrastructure Reliability**  
    The underlying cloud infrastructure provider is assumed to provide secure physical data centers, network isolation, and baseline DDoS protection.
-
 2. **Secure Payment Processor**  
    The external payment processor and core banking system are assumed to follow industry security standards and properly validate and sign callbacks (webhooks).
-
 3. **TLS Configuration is Properly Implemented**  
    All external and internal communications are assumed to use correctly configured TLS with valid certificates.
-
 4. **Secure Key and Secret Storage**  
    The Secrets Manager and KMS/HSM systems are assumed to be properly configured, access-controlled, and monitored.
-
 5. **Users Follow Security Best Practices**  
    End users (customers, merchants, administrators) are assumed to protect their credentials and devices to a reasonable extent.
-
 6. **Administrative Controls Are Enforced**  
    VPN access, MFA enforcement, RBAC policies, and approval gates are assumed to be correctly implemented and maintained.
-
 7. **Compliance Requirements Are Followed**  
    Industry compliance standards (e.g., PCI DSS where applicable) are assumed to be followed for handling financial data.
 
@@ -238,22 +233,16 @@ The threat model and architecture design have the following limitations:
 
 1. **High-Level Architectural Scope**  
    The analysis focuses on architectural controls rather than detailed code-level vulnerabilities.
-
 2. **No Full Infrastructure Deep Dive**  
    Low-level infrastructure components such as load balancers, container orchestration details, or operating system hardening were not modeled in depth.
-
 3. **Third-Party Systems Outside Direct Control**  
    External services (payment processor, cloud provider, notification provider) are outside the system’s direct security control.
-
 4. **Zero-Day and Advanced Persistent Threats**  
    Unknown vulnerabilities and highly sophisticated attackers may bypass implemented defenses.
-
 5. **Human Behavior Unpredictability**  
    Insider threats and social engineering attacks cannot be fully eliminated through technical controls.
-
 6. **Operational Security Dependency**  
    Security effectiveness depends on proper monitoring, alert response, and regular maintenance of controls.
-
 7. **Simplified Trust Boundary Representation**  
    The trust boundaries shown in the diagram are conceptual and may differ in a real production deployment environment.
 
