@@ -27,6 +27,7 @@ All frontend applications communicate with backend services over HTTPS.
 - Admin Service (refund approvals, dispute handling, financial adjustments)
 
 **Data Storage (Private Zone)**
+
 All databases are located in a restricted internal network zone.
 - User Database (customer accounts, credentials)
 - Merchant Database (merchant profiles, API credentials)
