@@ -136,7 +136,10 @@ Below is the logical architecture of the system:
 | 19 | Data Storage | Spoofing | Transaction/Billing Database | Spoofing of Destination Data Store Transaction/Billing Database | Transaction/Billing Database may be spoofed by an attacker. | Unauthorized transaction status manipulation. | High | Database spoofing breaks core trust boundary in Private Data Zone. |
 | 20 | API Communication | Denial Of Service | Webhook Handler / Transaction/Billing Database | Potential Excessive Resource Consumption for Webhook Handler or Transaction/Billing Database | Does Webhook Handler or Transaction/Billing Database take explicit steps to control resource consumption? | Delayed payment confirmation and settlement failures. | High | Payment lifecycle depends on reliable webhook processing. |
 
-full table: [https://docs.google.com/spreadsheets/d/15fLBQAJtGv38hJL31u_i30fp6wd0mQ4Szm5_EjuBMcs/edit?usp=sharing]
+The complete threat model and role-to-threat mapping table is available in the full threat register:
+
+**Full Threat Model Table:**  
+https://docs.google.com/spreadsheets/d/19GUuT_pfeCqj_SygqRstEMSVBlQKtaSB6fgJTf5cnRs/edit?usp=sharing
 
 ## Task 4. Secure Architecture Design 
 ![Secured Diagram](secured-high.png)
@@ -188,13 +191,6 @@ Security controls were added at multiple layers: edge (WAF), identity (IdP + MFA
 | 19 | Data Flow Sniffing | High | Mitigate | TLS for all communications + mTLS for payment processor integration. | TLS misconfiguration risk remains. |
 | 20 | API Gateway Denial of Service | High | Mitigate + Transfer | Use WAF rate limiting + cloud DDoS protection (transfer to cloud provider). | Large-scale volumetric DDoS may still degrade performance. |
 | 13 | Webhook Handler Resource Exhaustion | High | Mitigate | Rate limiting + resource quotas + autoscaling. | Extreme traffic spikes may still cause delays. |
-
-The complete threat model and role-to-threat mapping table is available in the full threat register:
-
-**Full Threat Model Table:**  
-https://docs.google.com/spreadsheets/d/19GUuT_pfeCqj_SygqRstEMSVBlQKtaSB6fgJTf5cnRs/edit?usp=sharing### Residual Risk Explanation
-
-Although high-risk threats have been mitigated through architectural controls, some residual risk remains due to systemic and external factors that cannot be fully eliminated.
 
 #### Primary Residual Risk Drivers
 
