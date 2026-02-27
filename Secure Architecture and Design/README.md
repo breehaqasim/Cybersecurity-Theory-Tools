@@ -197,11 +197,8 @@ Although high-risk threats have been mitigated through architectural controls, s
 #### Primary Residual Risk Drivers
 
 1. **Human and behavioral risk** – User behavior, social engineering, and administrative misuse remain outside complete technical control.
-
 2. **Configuration and operational risk** – Security mechanisms such as RBAC, logging, and network policies require ongoing maintenance and may degrade if misconfigured.
-
 3. **Third-party dependency risk** – The system depends on external payment processors and cloud infrastructure providers whose internal controls are not fully visible.
-
 4. **Advanced or unknown threats** – Zero-day vulnerabilities and novel attack techniques may bypass layered defenses.
 
 Residual risk is reduced to an acceptable operational level through defense-in-depth, continuous monitoring, and separation of privilege domains, but it cannot be eliminated entirely.
