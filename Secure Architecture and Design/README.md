@@ -189,8 +189,10 @@ Security controls were added at multiple layers: edge (WAF), identity (IdP + MFA
 | 20 | API Gateway Denial of Service | High | Mitigate + Transfer | Use WAF rate limiting + cloud DDoS protection (transfer to cloud provider). | Large-scale volumetric DDoS may still degrade performance. |
 | 13 | Webhook Handler Resource Exhaustion | High | Mitigate | Rate limiting + resource quotas + autoscaling. | Extreme traffic spikes may still cause delays. |
 
-full table: [https://docs.google.com/spreadsheets/d/19GUuT_pfeCqj_SygqRstEMSVBlQKtaSB6fgJTf5cnRs/edit?usp=sharing]
-### Residual Risk Explanation
+The complete threat model and role-to-threat mapping table is available in the full threat register:
+
+**Full Threat Model Table:**  
+https://docs.google.com/spreadsheets/d/19GUuT_pfeCqj_SygqRstEMSVBlQKtaSB6fgJTf5cnRs/edit?usp=sharing### Residual Risk Explanation
 
 Although high-risk threats have been mitigated through architectural controls, some residual risk remains due to systemic and external factors that cannot be fully eliminated.
 
