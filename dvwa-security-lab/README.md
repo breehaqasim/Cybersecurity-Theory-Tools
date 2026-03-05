@@ -609,3 +609,158 @@ At lower security levels, the application directly inserted the `default` parame
 
 ### Explanation of why it failed at high level
 At the high security level, the application restricts input to a predefined list of allowed language values. Any input outside these allowed values is ignored, preventing malicious scripts from being inserted into the DOM. This effectively mitigates the DOM-based XSS vulnerability.
+
+## XSS (Reflected)
+
+### Security Level:
+Low 🟡
+
+### Payload:
+<script>alert('XSS')</script>
+
+### Result:
+A JavaScript alert box appeared after submitting the input, confirming that the injected script executed successfully in the browser.
+
+### Screenshot:
+![Reflected XSS Low](screenshots/xss-reflected-low.png)
+
+### Explanation of why it worked
+At the low security level, the application reflects the user input directly into the HTML response without performing any sanitization or encoding. Because the `<script>` tag is interpreted by the browser, the injected JavaScript executes immediately when the page loads.
+
+### Explanation of why it failed at higher level
+At higher security levels, the application performs input validation or output encoding to sanitize user input before displaying it. This prevents the browser from interpreting injected script tags as executable JavaScript.
+
+### Security Level:
+Medium 🟢
+
+### Payload:
+<img src=x onerror=alert('XSS')>
+
+### Result:
+A JavaScript alert box appeared after submitting the payload, confirming that the injected JavaScript executed successfully.
+
+### Screenshot:
+![Reflected XSS Medium](screenshots/xss-reflected-medium.png)
+
+### Explanation of why it worked
+At the medium security level, the application attempts to filter the `<script>` tag but does not properly sanitize other HTML elements. The injected `<img>` tag includes an `onerror` event handler, which executes JavaScript when the image fails to load.
+
+### Explanation of why it failed at higher level
+At higher security levels, the application performs stronger input validation and output encoding. Dangerous tags and event handlers are sanitized or escaped before being rendered in the browser, preventing the execution of injected JavaScript.
+
+### Security Level:
+High 🔴
+
+### Payload Attempted:
+<script>alert('XSS')</script>
+
+### Result:
+The payload was displayed as text on the page but did not execute. No JavaScript alert appeared.
+
+### Screenshot:
+![Reflected XSS High](screenshots/xss-reflected-high.png)
+
+### Explanation of why it worked at lower levels
+At lower security levels, the application reflected user input directly into the HTML response without sanitization. This allowed attackers to inject JavaScript code that executed in the browser.
+
+### Explanation of why it failed at high level
+At the high security level, the application sanitizes user input before reflecting it in the page. Special characters such as `<` and `>` are encoded, preventing the browser from interpreting them as executable HTML or JavaScript. This effectively mitigates the reflected XSS vulnerability.
+
+## XSS (Store)
+
+### Security Level:
+Low 🟡
+
+### Payload:
+<script>alert('Stored XSS')</script>
+
+### Result:
+After submitting the payload, the message was stored in the guestbook. When the page reloaded, a JavaScript alert box appeared automatically, confirming that the injected script was executed.
+
+### Screenshot:
+![Stored XSS Low](screenshots/xss-stored-low-1.png)
+![Stored XSS Low 2](screenshots/xss-stored-low-2.png)
+
+### Explanation of why it worked
+At the low security level, the application stores user input in the database without performing any sanitization or output encoding. When the page loads, the stored input is rendered directly in the browser, allowing the injected JavaScript code to execute.
+
+### Explanation of why it failed at higher level
+At higher security levels, the application applies input validation and output encoding before storing or displaying user input. This prevents malicious scripts from being interpreted and executed by the browser.
+
+### Security Level:
+Medium 🟢
+
+### Payload:
+<img src=x onerror=alert('Stored XSS')>
+
+### Result:
+After submitting the payload, the message was stored in the guestbook. When the page reloaded, a JavaScript alert box appeared automatically, confirming that the injected payload executed successfully.
+
+### Screenshot:
+![Stored XSS Medium](screenshots/xss-stored-medium.png)
+
+### Explanation of why it worked
+At the medium security level, the application attempts to block the `<script>` tag but does not properly sanitize other HTML elements. The injected `<img>` element includes an `onerror` event handler that executes JavaScript when the image fails to load.
+
+### Explanation of why it failed at higher level
+At higher security levels, stronger input validation and output encoding are applied. Dangerous HTML tags and event handlers are filtered or escaped before being stored or rendered, preventing the execution of injected JavaScript.
+
+### Security Level:
+High 🔴
+
+### Payload:
+<svg/onload=alert(1)>
+
+### Result:
+The payload was successfully stored in the guestbook. When the page loaded, the SVG element triggered the `onload` event, which executed the JavaScript alert.
+
+### Explanation of why it worked
+The application attempted to filter common XSS vectors such as `<script>` tags and some event attributes. However, it failed to sanitize all HTML elements. The `<svg>` tag with the `onload` event handler allowed JavaScript execution when the page rendered.
+
+### Explanation of why it failed at higher level
+Properly secured applications use strict input validation, output encoding, and Content Security Policies (CSP). These mechanisms prevent execution of injected HTML elements and JavaScript event handlers, blocking stored XSS attacks.
+
+## CSP Bypass
+
+### Security Level:
+Low 🟡
+
+### Payload:
+/../hackable/uploads/csp.js
+
+### Malicious Script (csp.js)
+alert("CSP Bypass Successful");
+
+### Result
+A malicious JavaScript file was uploaded using the File Upload functionality. The uploaded script was then included through the CSP bypass page using a relative path. When the page loaded, the script executed and triggered a JavaScript alert.
+
+### Screenshot
+![CSP Bypass Low](screenshots/csp-bypass-low.png)
+
+### Explanation of why it worked
+At the low security level, the Content Security Policy allows scripts to be loaded from internal paths without proper validation. Because the attacker can upload arbitrary JavaScript files to the server, the script can later be included and executed in the browser.
+
+### Explanation of why it failed at higher level
+At higher security levels, the CSP policy restricts script sources to trusted domains and prevents loading scripts from arbitrary internal paths. File upload restrictions and path validation also prevent attackers from uploading executable scripts.
+
+### Security Level
+Medium 🟢
+
+### Payload Attempted
+/../hackable/uploads/csp.png
+
+### Malicious File Content
+alert("CSP Bypass Medium");
+
+### Result
+The malicious file `csp.png` was uploaded using the File Upload module and its path was entered into the CSP Bypass include field. However, no JavaScript alert appeared after clicking Include.
+
+### Screenshot
+![CSP Bypass Low](screenshots/csp-bypass-medium.png)
+
+### Explanation of why it worked
+At the low security level, the Content Security Policy allows scripts to be loaded without strong restrictions. When a malicious script file is uploaded and included in the page, the browser loads and executes it, which results in the JavaScript alert being triggered.
+
+### Explanation of why it failed at higher level
+At the medium security level, the application restricts uploads to image file extensions such as `.png` and `.jpeg`. Even though the uploaded file contains JavaScript code, the server serves it with an image MIME type `(image/png)`. Because the browser interprets the file as an image instead of a JavaScript resource, the script is not executed and no alert box appears.
+
