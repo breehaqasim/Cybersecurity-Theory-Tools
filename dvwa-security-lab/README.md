@@ -517,3 +517,21 @@ The application generates session identifiers using a predictable incremental va
 
 ### Explanation of why it failed at higher level
 Secure implementations generate session identifiers using strong cryptographic randomness and enforce proper session management. This prevents attackers from predicting or brute-forcing session identifiers.
+
+### Security Level:
+Medium 🟢
+
+### Payload:
+dvwaSession=1709812348
+
+### Result:
+The session ID values changed based on the current timestamp each time the "Generate" button was pressed. Because the session identifiers follow a predictable time-based pattern, an attacker can estimate or guess valid session IDs.
+
+### Screenshot:
+![Weak Session IDs Medium](screenshots/weak-sesh-medium.png)
+
+### Explanation of why it worked
+At the Medium security level, the application generates session identifiers using the current timestamp. Although this is slightly more complex than sequential numbers, timestamps are still predictable because they are based on the current time. An attacker can estimate nearby values and attempt to hijack active sessions.
+
+### Explanation of why it failed at higher level
+Secure implementations generate session identifiers using cryptographically secure random number generators. Random session tokens are extremely difficult to predict, preventing attackers from guessing valid session IDs.
