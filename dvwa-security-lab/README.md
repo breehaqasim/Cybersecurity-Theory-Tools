@@ -849,3 +849,57 @@ At lower security levels, the application relies on **client-side JavaScript val
 
 ### Explanation of why it fails at higher levels
 At higher security levels, additional protections may be implemented such as stronger token validation, server-side verification, or stricter checks on form submission. These mechanisms prevent attackers from bypassing security controls simply by modifying client-side JavaScript.
+
+
+## Docker Inspection Tasks
+
+### 1. Running Containers
+
+Command:
+```
+docker ps
+```
+
+Result:
+This command lists all currently running Docker containers. The output showed the **DVWA container running**, including its container ID, image name, ports, and container name.
+
+Example Output:
+```
+CONTAINER ID   IMAGE                  COMMAND      CREATED       STATUS       PORTS                                     NAMES
+3933d81482b1   vulnerables/web-dvwa   "/main.sh"   6 hours ago   Up 6 hours   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   dvwa
+```
+
+---
+
+### 2. Inspect Container Details
+
+Command:
+```
+docker inspect dvwa
+```
+
+Result:
+```
+[
+    {
+        "Id": "3933d81482b145899be66b0073058cad15ef03c457e97215d7696829e6918d3c",
+        "Created": "2026-03-05T10:20:41.548779147Z",
+        "Path": "/main.sh",
+        "Args": [],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 619,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-03-05T10:20:42.477799805Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:dae203fe11646a86937bf04db0079adef295f426da68a92b40e3b181f337daa7", ....
+```
+
+---
