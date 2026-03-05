@@ -334,3 +334,27 @@ At the Medium security level, the application attempts to block directory traver
 
 ### Explanation of why it failed at higher level:
 At higher security levels, DVWA restricts file inclusion to a predefined set of files and performs stricter input validation, preventing directory traversal attacks.
+
+### Security Level:
+High 🔴
+
+### Payload:
+```
+file:///var/www/html/hackable/flags/fi.php
+```
+
+##### Payload Source:
+Hackviser – File Inclusion Testing Guide  
+https://hackviser.com/tactics/pentesting/web/local-file-inclusion
+
+### Result:
+The application displayed the contents of the file `/var/www/html/hackable/flags/fi.php`, confirming that file inclusion was still possible.
+
+### Screenshot:
+![File Inclusion High](screenshots/file-inclusion-high.png)
+
+### Explanation of why it worked:
+Although the High security level attempts to restrict file inclusion to specific filenames, the filter does not block PHP stream wrappers such as `file://`. This allows attackers to directly reference files on the server and bypass the intended restrictions.
+
+### Explanation of why it failed at higher level:
+Stronger implementations should strictly validate allowed file paths and disable dangerous wrappers such as `file://`, preventing arbitrary file inclusion.
