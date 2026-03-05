@@ -478,3 +478,21 @@ The application directly includes the user-supplied `id` parameter in the SQL qu
 
 ### Explanation of why it failed at higher level
 At higher security levels, the application sanitizes the input and restricts the `id` parameter to numeric values. Because the input is cast to an integer before the query is executed, any injected SQL logic is removed. As a result, payloads such as `1 AND 1=2` are interpreted simply as `1`, preventing the SQL injection from affecting the query.
+
+### Security Level:
+High 🔴
+
+### Payload:
+1 AND SLEEP(5)
+
+### Result:
+The application response was delayed for several seconds, indicating that the injected SQL command was executed. This confirms the presence of a time-based blind SQL injection vulnerability.
+
+### Screenshot:
+![SQL Injection Blind High](screenshots/sql-injection-blind-high.png)
+
+### Explanation of why it worked
+The application uses a cookie value as part of the SQL query without proper validation. By injecting a payload such as `1 AND SLEEP(5)`, the attacker can force the database to pause execution. The delay in the application's response confirms that the injected SQL command was processed by the database.
+
+### Explanation of why it failed at higher level
+Secure implementations validate and sanitize cookie inputs before using them in database queries. Proper defenses such as parameterized queries, strict input validation, and prepared statements prevent malicious SQL commands from being executed, eliminating the possibility of time-based SQL injection attacks.
