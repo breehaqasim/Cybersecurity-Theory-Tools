@@ -80,3 +80,35 @@ The payload tries to change the logic of the SQL query by adding the condition `
 
 ### Explanation of why it failed at higher level:
 At the High security level, DVWA applies stronger protections to user input. The application processes the input more carefully before using it in the SQL query, which prevents the injected condition from changing the query logic. Because of this, the attack does not return all users and only a normal result is shown.
+
+## Command Injection
+
+### Security Level: 
+Low 🟡
+
+### Payload:
+```
+127.0.0.1; id
+```
+
+##### Payload Source:  
+Hackviser – Command Injection Testing Guide  
+https://hackviser.com/tactics/pentesting/web/command-injection
+
+### Result:
+The application first executed the normal `ping` command and then also executed the `id` command. The output displayed:
+
+```
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+```
+
+This shows that the command was executed on the server.
+
+### Screenshot:
+![Command Injection Low](screenshots/command-injection-low.png)
+
+### Explanation of why it worked:
+The application directly uses the user input in a system command. The semicolon (`;`) allows another command to run after the first one. Because there is no input validation, the server runs both `ping` and `id`.
+
+### Explanation of why it failed at higher level:
+At higher security levels, the application filters or blocks special characters like `;`. Because of this, additional commands cannot be executed.
