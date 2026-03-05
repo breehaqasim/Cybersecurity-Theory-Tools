@@ -535,3 +535,21 @@ At the Medium security level, the application generates session identifiers usin
 
 ### Explanation of why it failed at higher level
 Secure implementations generate session identifiers using cryptographically secure random number generators. Random session tokens are extremely difficult to predict, preventing attackers from guessing valid session IDs.
+
+### Security Level:
+High 🔴
+
+### Payload:
+dvwaSession (no predictable value observed)
+
+### Result:
+The session ID remained the same even after clicking the "Generate" button multiple times. No sequential or time-based pattern was observed.
+
+### Screenshot:
+![Weak Session IDs High](screenshots/weak-sesh-high.png)
+
+### Explanation of why it worked
+At lower security levels, the application generated session identifiers using predictable patterns such as sequential numbers or timestamps. These patterns allowed attackers to guess valid session identifiers.
+
+### Explanation of why it failed at higher level
+At the High security level, the application relies on secure session management. The session ID is generated using a secure random mechanism and remains stable for the active session. Because the identifier is not predictable and does not change in a pattern, attackers cannot guess or manipulate session IDs.
