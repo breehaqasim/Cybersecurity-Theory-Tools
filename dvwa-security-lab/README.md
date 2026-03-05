@@ -3,7 +3,7 @@
 ## SQL Injection
 
 ### Security Level: 
-Low
+Low 🟡
 
 ### Payload:
 ```
@@ -34,9 +34,9 @@ Because `'1'='1'` is always true, the database returns **all rows**, so multiple
 At higher security levels (Medium/High), DVWA applies stricter input handling e.g., validation and safer query parameters. These controls prevent special characters like `'` from changing the SQL syntax, so the injected condition cannot modify the query logic and the attack fails.
 
 ### Security Level: 
-Medium
+Medium 🟢
 
-### Attempted Payload:
+### Payload:
 ```
 1' OR '1'='1
 ```
@@ -58,3 +58,25 @@ Because the attacker cannot modify the input value, the SQL query cannot be mani
 
 ### Explanation of why it failed at higher level:
 Since the application restricts input to predefined values through the dropdown menu, it prevents malicious SQL payloads from being submitted. As a result, the attacker cannot alter the structure of the SQL query, and the injection attempt fails.
+
+### Security Level:
+High 🔴
+
+### Payload:
+```
+1' OR '1'='1
+```
+
+##### Payload Source: OWASP Web Security Testing Guide
+
+### Result:
+The payload was entered in the SQL Injection session input window. However, unlike the Low security level, the application did not return multiple user records. Only a single record (admin) was shown.
+
+### Screenshot:
+![SQL Injection High](screenshots/sql-injection-high.png)
+
+### Explanation of why it worked:
+The payload tries to change the logic of the SQL query by adding the condition `'1'='1'`, which is always true. In systems that do not properly validate user input, this condition can cause the database to return all rows from the table.
+
+### Explanation of why it failed at higher level:
+At the High security level, DVWA applies stronger protections to user input. The application processes the input more carefully before using it in the SQL query, which prevents the injected condition from changing the query logic. Because of this, the attack does not return all users and only a normal result is shown.
