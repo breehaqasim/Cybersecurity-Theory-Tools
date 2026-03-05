@@ -311,3 +311,26 @@ At the Low security level, the application directly includes the value provided 
 ### Explanation of why it failed at higher level:
 At higher security levels, DVWA restricts file inclusion to specific allowed files and sanitizes user input, preventing directory traversal attacks.
 
+### Security Level:
+Medium 🟢
+
+### Payload:
+```
+..//..//..//..//etc/passwd
+```
+
+##### Payload Source:
+Hackviser – File Inclusion Testing Guide  
+https://hackviser.com/tactics/pentesting/web/local-file-inclusion
+
+### Result:
+The application displayed the contents of `/etc/passwd`, confirming that the directory traversal filter was bypassed.
+
+### Screenshot:
+![File Inclusion Medium](screenshots/file-inclusion-medium.png)
+
+### Explanation of why it worked:
+At the Medium security level, the application attempts to block directory traversal by filtering the string `../`. However, the payload `..//` bypasses this filter while still resolving to a parent directory, allowing access to sensitive system files.
+
+### Explanation of why it failed at higher level:
+At higher security levels, DVWA restricts file inclusion to a predefined set of files and performs stricter input validation, preventing directory traversal attacks.
