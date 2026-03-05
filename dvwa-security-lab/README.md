@@ -1,9 +1,8 @@
 # DVWA Security Lab Report
 
-### Vulnerability Name
-SQL Injection
+## SQL Injection
 
-### Security Level
+### Security Level: 
 Low
 
 ### Payload:
@@ -12,8 +11,8 @@ Low
 ```
 ##### Payload Source: OWASP Web Security Testing Guide
 
-### Result
+### Result:
 The application returned multiple user records from the database instead of a single record. The output displayed several users including **admin, Gordon Brown, Hack Me, Pablo Picasso, and Bob Smith**.
 
-### Screenshot
+### Screenshot:
 ![SQL Injection Low](screenshots/sql-injection-low.png)
