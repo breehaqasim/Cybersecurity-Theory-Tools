@@ -573,3 +573,39 @@ The application reads the value of the `default` parameter directly from the URL
 
 ### Explanation of why it failed at higher level
 At higher security levels, the application validates or sanitizes the input before inserting it into the DOM. Potentially dangerous characters and script tags are filtered or encoded, preventing execution of injected JavaScript.
+
+### Security Level:
+Medium 🟢
+
+### Payload:
+?default=<img src=x onerror=alert(1)>
+
+### Result:
+A JavaScript alert box appeared when the page loaded, confirming that the injected payload executed successfully.
+
+### Screenshot:
+![DOM XSS Medium](screenshots/xss-dom-medium.png)
+
+### Explanation of why it worked
+At the medium security level, the application blocks simple `<script>` tags but still allows HTML elements with JavaScript event handlers. The injected `<img>` tag triggers the `onerror` event when the image fails to load, which executes the JavaScript payload.
+
+### Explanation of why it failed at higher level
+At higher security levels, the application applies stronger input validation and sanitization. Dangerous characters, tags, and event handlers are filtered or encoded before being inserted into the DOM, preventing execution of injected JavaScript.
+
+### Security Level:
+High 🔴
+
+### Payload Attempted:
+?default=<script>alert(1)</script>
+
+### Result:
+The payload did not execute. The application ignored the injected value and reverted to a valid predefined option (e.g., "English").
+
+### Screenshot:
+![DOM XSS High](screenshots/xss-dom-high.png)
+
+### Explanation of why it worked at lower levels
+At lower security levels, the application directly inserted the `default` parameter from the URL into the DOM without sanitization. This allowed attackers to inject malicious JavaScript code that executed in the browser.
+
+### Explanation of why it failed at high level
+At the high security level, the application restricts input to a predefined list of allowed language values. Any input outside these allowed values is ignored, preventing malicious scripts from being inserted into the DOM. This effectively mitigates the DOM-based XSS vulnerability.
