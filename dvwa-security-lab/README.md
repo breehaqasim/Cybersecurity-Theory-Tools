@@ -142,3 +142,27 @@ At the Medium level, the application blocks some characters such as `;`, but oth
 
 ### Explanation of why it failed at higher level:
 At the High security level, stricter input validation is applied and more command operators are filtered, preventing additional commands from being executed.
+
+### Security Level: 
+High 🔴
+
+### Payload:
+```
+127.0.0.1; id
+```
+
+##### Payload Source:  
+Hackviser – Command Injection Testing Guide  
+https://hackviser.com/tactics/pentesting/web/command-injection
+
+### Result:
+After submitting the payload, the application only executed the normal `ping` command. The output of the `id` command was not displayed, indicating that the injected command was not executed.
+
+### Screenshot:
+![Command Injection High](screenshots/command-injection-high.png)
+
+### Explanation of why it failed:
+At the High security level, the application performs stricter input validation and filtering. Special characters such as `;` used to chain commands are blocked or ignored. As a result, only the intended `ping` command is executed.
+
+### Explanation of mitigation:
+The application restricts the input and filters dangerous characters before executing the system command. This prevents attackers from injecting additional commands into the system call.
