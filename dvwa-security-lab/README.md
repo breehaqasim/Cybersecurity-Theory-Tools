@@ -976,14 +976,16 @@ Docker isolates applications using containers that package the application and i
 ---
 
 ## Security Analysis Questions
-Answer the following:
+### Why does SQL Injection succeed at Low security?
+At the Low security level, user input is directly included in SQL queries without proper validation or sanitization. This allows attackers to inject malicious SQL code that alters the query logic. As a result, unauthorized data can be accessed or modified.
 
-Why does SQL Injection succeed at Low security?
+### What control prevents it at High?
+At the High security level, input validation and parameterized queries are used to separate user input from SQL commands. These controls prevent the database from interpreting injected input as executable SQL. This effectively blocks SQL injection attempts.
 
-What control prevents it at High?
+### Does HTTPS prevent these attacks? Why or why not?
+No, HTTPS does not prevent these attacks. HTTPS only encrypts data transmitted between the client and server to protect against interception. Vulnerabilities like SQL injection occur due to insecure server-side input handling, which HTTPS does not address.
 
-Does HTTPS prevent these attacks? Why or why not?
+### What risks exist if this application is deployed publicly?
+If deployed publicly, attackers could exploit vulnerabilities to access sensitive data, modify the database, or gain administrative control. This could lead to data breaches, system compromise, and reputational damage. Public exposure significantly increases the likelihood of automated attacks.
 
-What risks exist if this application is deployed publicly?
-
-Map each vulnerability to its OWASP Top 10 category.
+### Map each vulnerability to its OWASP Top 10 category. LEFT
