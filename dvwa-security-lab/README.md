@@ -358,3 +358,29 @@ Although the High security level attempts to restrict file inclusion to specific
 
 ### Explanation of why it failed at higher level:
 Stronger implementations should strictly validate allowed file paths and disable dangerous wrappers such as `file://`, preventing arbitrary file inclusion.
+
+## File Upload
+
+### Security Level:
+Low 🟡
+
+### Payload:
+```php
+<?php system($_GET['cmd']); ?>
+```
+
+##### Payload Source:
+Hackviser – File Upload Testing Guide  
+https://hackviser.com/tactics/pentesting/web/file-upload
+
+### Result:
+The PHP file was uploaded successfully to the server and stored inside the `hackable/uploads` directory. By accessing the uploaded file through the browser, it was possible to execute system commands on the server.
+
+### Screenshot:
+![File Upload Low](screenshots/file-upload-low.png)
+
+### Explanation of why it worked:
+At the Low security level, the application does not validate the file type or extension of uploaded files. This allows attackers to upload malicious PHP scripts that can be executed on the server.
+
+### Explanation of why it failed at higher level:
+At higher security levels, the application performs validation checks such as restricting allowed file extensions or verifying MIME types, which prevents uploading executable scripts like PHP files.
