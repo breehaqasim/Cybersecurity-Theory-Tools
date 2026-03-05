@@ -989,3 +989,17 @@ No, HTTPS does not prevent these attacks. HTTPS only encrypts data transmitted b
 If deployed publicly, attackers could exploit vulnerabilities to access sensitive data, modify the database, or gain administrative control. This could lead to data breaches, system compromise, and reputational damage. Public exposure significantly increases the likelihood of automated attacks.
 
 ### Map each vulnerability to its OWASP Top 10 category. LEFT
+
+| Vulnerability            | OWASP Top 10 Category |
+|--------------------------|-----------------------|
+| Command Injection        | A03:2021 – Injection |
+| CSRF                     | A01:2021 – Broken Access Control |
+| SQL Injection            | A03:2021 – Injection |
+| SQL Injection (Blind)    | A03:2021 – Injection |
+| File Inclusion (LFI/RFI) | A05:2021 – Security Misconfiguration |
+| File Upload              | A05:2021 – Security Misconfiguration |
+| Weak Session IDs         | A07:2021 – Identification and Authentication Failures |
+| XSS (DOM)                | A03:2021 – Injection |
+| XSS (Reflected)          | A03:2021 – Injection |
+| XSS (Stored)             | A03:2021 – Injection |
+| CSP Bypass               | A05:2021 – Security Misconfiguration |
