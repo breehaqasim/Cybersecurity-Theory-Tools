@@ -112,3 +112,33 @@ The application directly uses the user input in a system command. The semicolon 
 
 ### Explanation of why it failed at higher level:
 At higher security levels, the application filters or blocks special characters like `;`. Because of this, additional commands cannot be executed.
+
+### Security Level: 
+Medium 🟢
+
+### Payload:
+```
+127.0.0.1 | id
+```
+
+##### Payload Source:  
+Hackviser – Command Injection Testing Guide  
+https://hackviser.com/tactics/pentesting/web/command-injection
+
+### Result:
+After submitting the payload, the application executed the injected `id` command and displayed:
+
+```
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+```
+
+This shows that the command was executed by the web server process, confirming that command injection is still possible at the Medium security level.
+
+### Screenshot:
+![Command Injection Medium](screenshots/command-injection-medium-recent.png)
+
+### Explanation of why it worked:
+At the Medium level, the application blocks some characters such as `;`, but other command operators like `|` are still allowed. By using the pipe operator, the injected `id` command was executed by the system.
+
+### Explanation of why it failed at higher level:
+At the High security level, stricter input validation is applied and more command operators are filtered, preventing additional commands from being executed.
