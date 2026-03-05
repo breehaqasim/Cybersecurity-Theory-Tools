@@ -436,3 +436,27 @@ The payload includes valid GIF magic bytes which make the file appear as an imag
 
 ### Explanation of why it failed at higher level:
 Secure implementations verify file contents more strictly and prevent execution of uploaded files, which blocks disguised malicious uploads.
+
+## SQL Injection (Blind)
+
+### Security Level:
+Low 🟡
+
+### Payload:
+1 AND LENGTH(database())>1
+
+##### Payload Source:
+Hackviser – SQL Injection Testing Guide  
+https://hackviser.com/tactics/pentesting/web/sql-injection
+
+### Result:
+The application returned the message **“User ID exists in the database.”**, indicating that the injected condition evaluated to true. This confirms that the input was executed as part of the SQL query.
+
+### Screenshot:
+![Blind SQL Injection Low](screenshots/sql-injection-blind-low.png)
+
+### Explanation of why it worked:
+The application directly inserted the user input into the SQL query without proper validation or parameterization. The payload added a boolean condition (`LENGTH(database())>1`) which was evaluated by the database. Since the DVWA database name (`dvwa`) has a length greater than 1, the condition returned true and the query executed successfully.
+
+### Explanation of why it would fail at higher level:
+Higher security levels implement input sanitization and prepared statements to prevent malicious SQL logic from being injected. These mechanisms restrict query manipulation and block unauthorized database operations, preventing blind SQL injection attacks.
