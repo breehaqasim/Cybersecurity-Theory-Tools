@@ -384,3 +384,29 @@ At the Low security level, the application does not validate the file type or ex
 
 ### Explanation of why it failed at higher level:
 At higher security levels, the application performs validation checks such as restricting allowed file extensions or verifying MIME types, which prevents uploading executable scripts like PHP files.
+
+### Security Level:
+Medium 🟢
+
+### Payload:
+shell.php.jpg
+
+```php
+<?php system($_GET['cmd']); ?>
+```
+
+##### Payload Source:
+Hackviser – File Upload Testing Guide  
+https://hackviser.com/tactics/pentesting/web/file-upload
+
+### Result:
+The file was uploaded successfully using a double extension. Although the application attempted to restrict PHP uploads, the file bypassed the filter because the last extension was `.jpg`.
+
+### Screenshot:
+![File Upload Medium](screenshots/file-upload-medium.png)
+
+### Explanation of why it worked:
+The application only checks the file extension and allows files ending in `.jpg`. Using a double extension (`shell.php.jpg`) bypasses the validation while still containing executable PHP code.
+
+### Explanation of why it failed at higher level:
+At higher security levels, the application performs stricter validation such as checking MIME types or verifying the file content, which prevents uploading files containing executable code.
