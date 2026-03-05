@@ -972,3 +972,18 @@ A Linux Machine, with a Apache server backend, a SQL database, written in PHP.
 
 ### How Docker isolates the environment
 Docker isolates applications using containers that package the application and its dependencies into a self-contained environment. Each container has its own filesystem, processes, and network space, preventing interference with the host system or other containers. This ensures consistent execution and improved security.
+
+---
+
+## Security Analysis Questions
+Answer the following:
+
+Why does SQL Injection succeed at Low security?
+
+What control prevents it at High?
+
+Does HTTPS prevent these attacks? Why or why not?
+
+What risks exist if this application is deployed publicly?
+
+Map each vulnerability to its OWASP Top 10 category.
