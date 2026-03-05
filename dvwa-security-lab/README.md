@@ -460,3 +460,21 @@ The application directly inserted the user input into the SQL query without prop
 
 ### Explanation of why it would fail at higher level:
 Higher security levels implement input sanitization and prepared statements to prevent malicious SQL logic from being injected. These mechanisms restrict query manipulation and block unauthorized database operations, preventing blind SQL injection attacks.
+
+### Security Level:
+Medium 🟢
+
+### Payload:
+1 AND 1=2
+
+### Result:
+The response remained "User ID exists in the database".
+
+### Screenshot:
+![Blind SQL Injection Medium](screenshots/sql-injection-blind-medium.png)
+
+### Explanation of why it worked
+The application directly includes the user-supplied `id` parameter in the SQL query without proper validation. By injecting logical conditions such as `1 AND 1=1` or `1 AND 1=2`, the attacker can influence how the query is evaluated. The difference in the application's response allows the attacker to infer information about the database.
+
+### Explanation of why it failed at higher level
+At higher security levels, the application sanitizes the input and restricts the `id` parameter to numeric values. Because the input is cast to an integer before the query is executed, any injected SQL logic is removed. As a result, payloads such as `1 AND 1=2` are interpreted simply as `1`, preventing the SQL injection from affecting the query.
