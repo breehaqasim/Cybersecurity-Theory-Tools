@@ -410,3 +410,29 @@ The application only checks the file extension and allows files ending in `.jpg`
 
 ### Explanation of why it failed at higher level:
 At higher security levels, the application performs stricter validation such as checking MIME types or verifying the file content, which prevents uploading files containing executable code.
+
+### Security Level:
+High 🔴
+
+### Payload:
+shell.php.jpg
+
+```php
+GIF89a<?php system($_GET['cmd']); ?>
+```
+
+##### Payload Source:
+Hackviser – File Upload Testing Guide  
+https://hackviser.com/tactics/pentesting/web/file-upload
+
+### Result:
+The file was uploaded successfully using a disguised image payload. The file appeared to be an image but contained executable PHP code.
+
+### Screenshot:
+![File Upload High](screenshots/file-upload-high.png)
+
+### Explanation of why it worked:
+The payload includes valid GIF magic bytes which make the file appear as an image. The application allowed the upload because it passed basic image validation checks.
+
+### Explanation of why it failed at higher level:
+Secure implementations verify file contents more strictly and prevent execution of uploaded files, which blocks disguised malicious uploads.
