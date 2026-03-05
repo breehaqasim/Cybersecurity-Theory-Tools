@@ -764,3 +764,88 @@ At the low security level, the Content Security Policy allows scripts to be load
 ### Explanation of why it failed at higher level
 At the medium security level, the application restricts uploads to image file extensions such as `.png` and `.jpeg`. Even though the uploaded file contains JavaScript code, the server serves it with an image MIME type `(image/png)`. Because the browser interprets the file as an image instead of a JavaScript resource, the script is not executed and no alert box appears.
 
+### Security Level
+High 🔴
+
+### Payload Attempted
+/../hackable/uploads/csp.png
+
+### Malicious File Content (csp.png)
+
+```javascript
+alert("CSP Bypass High");
+```
+
+### Result
+The file `csp.png` containing JavaScript code was uploaded using the File Upload module. The uploaded file path was then entered into the CSP Bypass include field. After clicking **Include**, the page loaded the resource but no JavaScript alert was triggered.
+
+### Screenshot
+![CSP Bypass High](screenshots/csp-bypass-high.png)
+
+### Explanation of why it worked at lower levels
+At lower security levels, the Content Security Policy configuration allows scripts to be loaded from unsafe or loosely restricted sources. This makes it possible to upload a malicious script and include it in the page, which results in execution of the JavaScript payload.
+
+### Explanation of why it failed at high level
+At the high security level, the Content Security Policy is more restrictive and only allows scripts from trusted sources. Additionally, the uploaded file is treated as an image (`image/png`) instead of executable JavaScript. Because of this strict CSP configuration and MIME type enforcement, the malicious script does not execute and no alert is displayed.
+
+## Java Script
+
+### Security Level:
+Low 🟡
+
+### Payload:
+```
+document.getElementsByName("phrase")[0].value="success";
+generate_token();
+document.forms[0].submit();
+```
+
+### Attack Steps
+1. Open the **JavaScript Attacks** page.
+2. Press **F12** to open **Developer Tools**.
+3. Navigate to the **Console** tab.
+4. Execute the following commands:
+
+```
+document.getElementsByName("phrase")[0].value="success";
+generate_token();
+document.forms[0].submit();
+```
+
+5. The form is submitted with the correct phrase and a valid token.
+
+### Result
+After executing the commands, the application displays:
+
+```
+Well done!
+```
+
+This confirms the challenge was successfully bypassed.
+
+### Screenshot
+![JS Low](screenshots/js-low.png)
+
+### Explanation of why it worked
+The application relies on **client-side JavaScript** to validate the phrase and generate a submission token. Since this logic runs in the browser, an attacker can manipulate the form input and manually trigger the token generation using the browser console.
+
+### Explanation of why it would fail in a secure implementation
+In a secure design, validation and token verification should be handled **server-side**. Even if an attacker manipulates JavaScript in the browser, the server would still verify the correctness of the request before accepting it.
+
+### Security Level
+Medium 🟢
+
+### Payload Attempted
+success
+
+### Result
+The page required the phrase **"success"** along with a valid JavaScript-generated token to complete the challenge. By overriding the client-side validation function using the browser console, the validation check was bypassed. The phrase field was then modified to contain the correct value and the form was submitted with a valid token. After submission, the application displayed **"Well done!"**, confirming that the challenge was successfully bypassed.
+
+### Screenshot
+![JavaScript Attacks Medium](screenshots/js-medium.png)
+
+### Explanation of why it worked at lower levels
+At lower security levels, the application relies on **client-side JavaScript validation** to enforce input rules. Because this logic executes entirely within the user's browser, an attacker can modify or override these functions using browser developer tools. By redefining the validation function to always return `true`, the attacker can bypass the restrictions and submit arbitrary input.
+
+### Explanation of why it fails at higher levels
+At higher security levels, additional protections may be implemented such as stronger token validation, server-side verification, or stricter checks on form submission. These mechanisms prevent attackers from bypassing security controls simply by modifying client-side JavaScript.
