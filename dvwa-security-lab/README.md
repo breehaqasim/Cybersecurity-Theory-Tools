@@ -496,3 +496,24 @@ The application uses a cookie value as part of the SQL query without proper vali
 
 ### Explanation of why it failed at higher level
 Secure implementations validate and sanitize cookie inputs before using them in database queries. Proper defenses such as parameterized queries, strict input validation, and prepared statements prevent malicious SQL commands from being executed, eliminating the possibility of time-based SQL injection attacks.
+
+## Weak Session IDs
+
+### Security Level:
+Low 🟡
+
+### Payload:
+dvwaSession=5
+
+### Result:
+The session ID value increased sequentially each time the "Generate" button was pressed. Because the IDs follow a predictable pattern (1, 2, 3, ...), an attacker could guess valid session identifiers.
+
+### Screenshot:
+![Weak Session IDs Low](screenshots/weak-sesh-low-1.png)
+![Weak Session IDs Low 2](screenshots/weak-sesh-low-2.png)
+
+### Explanation of why it worked
+The application generates session identifiers using a predictable incremental value rather than a cryptographically secure random generator. Because the IDs follow a simple sequence, attackers can easily predict valid session IDs and potentially hijack active sessions.
+
+### Explanation of why it failed at higher level
+Secure implementations generate session identifiers using strong cryptographic randomness and enforce proper session management. This prevents attackers from predicting or brute-forcing session identifiers.
