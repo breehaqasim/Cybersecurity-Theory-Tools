@@ -202,7 +202,47 @@ The malicious HTML page automatically submitted the request and the password was
 ![CSRF Low](screenshots/csrf-low.png)
 
 ### Explanation of why it worked:
-At the Low security level, the application does not verify where the request originated from. Since the victim is already authenticated, the browser automatically sends the session cookie with the request, allowing the password change to occur.
+At the Low security level, DVWA does not verify the origin of the request. Since the user is already authenticated, the browser automatically sends the session cookie with the request, allowing the password change to occur.
 
-### Explanation of mitigation:
-Applications should implement CSRF tokens and verify them on the server side to ensure that requests originate from legitimate forms.
+### Explanation of why it failed at higher level:
+At higher security levels, DVWA introduces protections such as checking the HTTP Referer header and using CSRF tokens. These mechanisms ensure that requests originate from legitimate pages, preventing the malicious request from being processed.
+
+### Security Level:
+Medium 🟢
+
+### Payload:
+```html
+<html>
+<body>
+
+<form action="http://localhost:8080/vulnerabilities/csrf/" method="GET">
+  <input type="hidden" name="password_new" value="hacked123">
+  <input type="hidden" name="password_conf" value="hacked123">
+  <input type="hidden" name="Change" value="Change">
+</form>
+
+<script>
+document.forms[0].submit();
+</script>
+
+</body>
+</html>
+```
+
+##### Payload Source:
+Hackviser – CSRF Testing Guide  
+https://hackviser.com/tactics/pentesting/web/csrf
+
+### Result:
+The attack failed and the application displayed the message:  
+`That request didn't look correct.`
+
+### Screenshot:
+![CSRF Medium](screenshots/csrf-medium.png)
+
+### Explanation of why it worked:
+At the Low security level, the application does not verify the origin of the request. Since the victim is already authenticated, the browser automatically sends the session cookie with the request, allowing the password change to occur.
+
+### Explanation of why it failed at higher level:
+At the Medium security level, DVWA checks the HTTP Referer header to ensure that the request originates from the DVWA application. Since the malicious request came from an external HTML page, the server rejected the request.
+```
