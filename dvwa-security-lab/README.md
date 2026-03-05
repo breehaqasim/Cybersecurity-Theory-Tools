@@ -245,4 +245,4 @@ At the Low security level, the application does not verify the origin of the req
 
 ### Explanation of why it failed at higher level:
 At the Medium security level, DVWA checks the HTTP Referer header to ensure that the request originates from the DVWA application. Since the malicious request came from an external HTML page, the server rejected the request.
-```
+
