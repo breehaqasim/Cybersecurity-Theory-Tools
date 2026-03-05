@@ -553,3 +553,23 @@ At lower security levels, the application generated session identifiers using pr
 
 ### Explanation of why it failed at higher level
 At the High security level, the application relies on secure session management. The session ID is generated using a secure random mechanism and remains stable for the active session. Because the identifier is not predictable and does not change in a pattern, attackers cannot guess or manipulate session IDs.
+
+## XSS (DOM)
+
+### Security Level:
+Low 🟡
+
+### Payload:
+?default=<script>alert(XSS)</script>
+
+### Result:
+A JavaScript alert box appeared when the page loaded, confirming that the injected script executed successfully.
+
+### Screenshot:
+![DOM XSS Low](screenshots/xss-dom-low.png)
+
+### Explanation of why it worked
+The application reads the value of the `default` parameter directly from the URL and inserts it into the DOM without sanitization. Because the input is not filtered or encoded, arbitrary JavaScript can be injected and executed in the browser.
+
+### Explanation of why it failed at higher level
+At higher security levels, the application validates or sanitizes the input before inserting it into the DOM. Potentially dangerous characters and script tags are filtered or encoded, preventing execution of injected JavaScript.
