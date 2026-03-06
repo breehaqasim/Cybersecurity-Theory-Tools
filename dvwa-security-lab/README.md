@@ -865,10 +865,14 @@ Properly secured applications use strict input validation, output encoding, and 
 Low 🟡
 
 ### Payload:
+```
 /../hackable/uploads/csp.js
+```
 
 ### Malicious Script (csp.js)
+```javascript
 alert("CSP Bypass Successful");
+```
 
 ### Result
 A malicious JavaScript file was uploaded using the File Upload functionality. The uploaded script was then included through the CSP bypass page using a relative path. When the page loaded, the script executed and triggered a JavaScript alert.
@@ -886,10 +890,14 @@ At higher security levels, the CSP policy restricts script sources to trusted do
 Medium 🟢
 
 ### Payload Attempted
+```
 /../hackable/uploads/csp.png
+```
 
 ### Malicious File Content
+```javascript
 alert("CSP Bypass Medium");
+```
 
 ### Result
 The malicious file `csp.png` was uploaded using the File Upload module and its path was entered into the CSP Bypass include field. However, no JavaScript alert appeared after clicking Include.
@@ -907,10 +915,11 @@ At the medium security level, the application restricts uploads to image file ex
 High 🔴
 
 ### Payload Attempted
+```
 /../hackable/uploads/csp.png
+```
 
 ### Malicious File Content (csp.png)
-
 ```javascript
 alert("CSP Bypass High");
 ```
@@ -975,7 +984,9 @@ In a secure design, validation and token verification should be handled **server
 Medium 🟢
 
 ### Payload Attempted
+```
 success
+```
 
 ### Result
 The page required the phrase **"success"** along with a valid JavaScript-generated token to complete the challenge. By overriding the client-side validation function using the browser console, the validation check was bypassed. The phrase field was then modified to contain the correct value and the form was submitted with a valid token. After submission, the application displayed **"Well done!"**, confirming that the challenge was successfully bypassed.
