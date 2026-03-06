@@ -69,7 +69,7 @@ Low 🟡
 
 ### Payload Used
 Modified request parameter:
-step=2&password_new=test&password_conf=test&Change=Change
+`<input type="hidden" name="step" value="2">`
 
 ### Result
 The password was changed successfully without completing the CAPTCHA challenge.
