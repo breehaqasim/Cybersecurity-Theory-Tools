@@ -6,8 +6,9 @@
 Low 🟡
 
 ### Payload Used
-Username: admin' OR '1'='1  
-Password: randompassword
+`Username: admin' OR '1'='1 `
+
+`Password: randompassword`
 
 ### Result
 Authentication was bypassed and the application displayed the message **"Welcome to the password protected area admin' OR '1'='1"**, granting access to the protected area.
@@ -25,8 +26,9 @@ At higher security levels, the application introduces protections such as input 
 Medium 🟢
 
 ### Payload Used
-Username: admin' OR '1'='1  
-Password: test
+`Username: admin' OR '1'='1  `
+
+`Password: test`
 
 ### Result
 The SQL injection payload failed and the application returned **"Username and/or password incorrect."**
@@ -44,8 +46,9 @@ At the medium security level, the application sanitizes user input using escapin
 High 🔴
 
 ### Payload Used
-Username: admin' OR '1'='1  
-Password: test
+`Username: admin' OR '1'='1  `
+
+`Password: test`
 
 ### Result
 The SQL injection attempt failed and the application returned **"Username and/or password incorrect."**
@@ -111,6 +114,30 @@ At the low security level, the CAPTCHA process relies only on the `step` paramet
 
 ### Explanation of why it failed at higher level
 At the medium security level, the developer attempted to introduce additional validation by using a `passed_captcha` variable. However, this variable is still stored on the client side and can be manipulated by the attacker. By setting `passed_captcha=true` in the request, the application incorrectly assumes the CAPTCHA was solved and allows the password change.
+
+### Security Level
+High 🔴
+
+### Payload Used
+Modified request parameters and header:
+
+`g-recaptcha-response=hidd3n_valu3`
+
+`User-Agent: reCAPTCHA`
+
+Password fields submitted with the change request.
+
+### Result
+The password was successfully changed without solving the CAPTCHA challenge.
+
+### Screenshot
+![Insecure CAPTCHA High](screenshots/insecure-captcha-high.png)
+
+### Explanation of why it worked at lower levels
+At the low and medium security levels, CAPTCHA validation relies on client-controlled parameters such as `step` and `passed_captcha`. These parameters can be easily modified in the request, allowing attackers to bypass the CAPTCHA verification and change the password.
+
+### Explanation of why it failed at higher level
+At the high security level, stronger validation is introduced. The application checks the CAPTCHA response and also validates the request header. However, due to leftover development logic in the code, the application accepts a special value (`hidd3n_valu3`) when the User-Agent is set to `reCAPTCHA`, allowing the CAPTCHA verification to be bypassed.
 
 ## SQL Injection
 
