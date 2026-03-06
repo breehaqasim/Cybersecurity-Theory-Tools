@@ -69,6 +69,9 @@ Low 🟡
 
 ### Payload Used
 Modified request parameter:
+
+Edited the value from 1 to 2
+
 `<input type="hidden" name="step" value="2">`
 
 ### Result
@@ -83,7 +86,30 @@ At the low security level, the CAPTCHA verification is implemented in two separa
 ### Explanation of why it failed at higher level
 At higher security levels, additional verification is introduced. The application checks whether the CAPTCHA was successfully completed before allowing the password change operation, preventing attackers from bypassing the verification step by simply modifying request parameters.
 
+### Security Level
+Medium 🟢
 
+### Payload Used
+Modified request parameters:
+
+Edited the value from 1 to 2 and also inserted new line 
+
+`
+<input type="hidden" name="step" value="2">
+<input type="hidden" name="passed_captcha" value="true">
+`
+
+### Result
+The password was successfully changed without completing the CAPTCHA challenge.
+
+### Screenshot
+![Insecure CAPTCHA Medium](screenshots/insecure-captcha-medium.png)
+
+### Explanation of why it worked at lower levels
+At the low security level, the CAPTCHA process relies only on the `step` parameter to determine whether the user has completed the CAPTCHA stage. Since this parameter is controlled by the client, an attacker can modify it and directly move to the password change stage without solving the CAPTCHA.
+
+### Explanation of why it failed at higher level
+At the medium security level, the developer attempted to introduce additional validation by using a `passed_captcha` variable. However, this variable is still stored on the client side and can be manipulated by the attacker. By setting `passed_captcha=true` in the request, the application incorrectly assumes the CAPTCHA was solved and allows the password change.
 
 ## SQL Injection
 
