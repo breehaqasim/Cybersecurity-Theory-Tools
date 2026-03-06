@@ -1050,7 +1050,7 @@ docker inspect dvwa
 ```
 
 Result:
-```
+```json
 [
     {
         "Id": "3933d81482b145899be66b0073058cad15ef03c457e97215d7696829e6918d3c",
@@ -1061,16 +1061,12 @@ Result:
             "Status": "running",
             "Running": true,
             "Paused": false,
-            "Restarting": false,
-            "OOMKilled": false,
-            "Dead": false,
-            "Pid": 619,
-            "ExitCode": 0,
-            "Error": "",
-            "StartedAt": "2026-03-05T10:20:42.477799805Z",
-            "FinishedAt": "0001-01-01T00:00:00Z"
+            ...
         },
-        "Image": "sha256:dae203fe11646a86937bf04db0079adef295f426da68a92b40e3b181f337daa7", ....
+        "Image": "sha256:dae203fe11646a86937bf04db0079adef295f426da68a92b40e3b181f337daa7"
+    },
+    ...
+]
 ```
 
 ---
@@ -1083,26 +1079,28 @@ docker logs dvwa
 ```
 
 Result:
-```
+```bash
 [+] Starting mysql...
 Starting MariaDB database server: mysqld.
 [+] Starting apache
 AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message
 Starting Apache httpd web server: apache2.
+...
+
 ==> /var/log/apache2/access.log <==
 
 ==> /var/log/apache2/error.log <==
 [Thu Mar 05 10:20:45.271832 2026] [mpm_prefork:notice] [pid 286] AH00163: Apache/2.4.25 (Debian) configured -- resuming normal operations
 [Thu Mar 05 10:20:45.271917 2026] [core:notice] [pid 286] AH00094: Command line: '/usr/sbin/apache2'
+...
 
 ==> /var/log/apache2/other_vhosts_access.log <==
 
 ==> /var/log/apache2/access.log <==
-172.17.0.1 - - [05/Mar/2026:10:22:03 +0000] "GET / HTTP/1.1" 302 479 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0"
-172.17.0.1 - - [05/Mar/2026:10:22:03 +0000] "GET /login.php HTTP/1.1" 200 1050 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0"
-172.17.0.1 - - [05/Mar/2026:10:22:04 +0000] "GET /dvwa/css/login.css HTTP/1.1" 200 741 "http://localhost:8080/login.php" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0"
-172.17.0.1 - - [05/Mar/2026:10:22:04 +0000] "GET /dvwa/images/login_logo.png HTTP/1.1" 200 9375 "http://localhost:8080/login.php" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0"
-172.17.0.1 - - [05/Mar/2026:10:22:04 +0000] "GET /favicon.ico HTTP/1.1" 200 1706 "http://localhost:8080/login.php" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0" ....
+172.17.0.1 - - [05/Mar/2026:10:22:03 +0000] "GET / HTTP/1.1" 302 479 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ..."
+172.17.0.1 - - [05/Mar/2026:10:22:03 +0000] "GET /login.php HTTP/1.1" 200 1050 "-" "Mozilla/5.0 ..."
+172.17.0.1 - - [05/Mar/2026:10:22:04 +0000] "GET /dvwa/css/login.css HTTP/1.1" 200 741 "http://localhost:8080/login.php" "Mozilla/5.0 ..."
+...
 ```
 
 ---
