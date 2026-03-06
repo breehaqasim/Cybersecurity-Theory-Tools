@@ -2,8 +2,7 @@
 
 ## 1. Brute Force
 
-### Security Level
-Low 🟡
+### Security Level: Low 🟡
 
 ### Payload Used
 ```
@@ -26,8 +25,7 @@ At the low security level, the application does not properly sanitize or validat
 ### Explanation of why it fails at higher levels
 At higher security levels, the application introduces protections such as input escaping, query validation, and additional authentication controls. These mechanisms prevent SQL injection payloads from altering the database query logic.
 
-### Security Level
-Medium 🟢
+### Security Level: Medium 🟢
 
 ### Payload Used
 ```
@@ -50,8 +48,7 @@ At the low security level, the application directly inserts user input into the 
 ### Explanation of why it failed at higher level
 At the medium security level, the application sanitizes user input using escaping functions such as `mysql_real_escape_string`. This prevents special SQL characters from altering the query structure, blocking the SQL injection attempt.
 
-### Security Level
-High 🔴
+### Security Level: High 🔴
 
 ### Payload Used
 ```
@@ -79,8 +76,7 @@ At the high security level, stronger input validation and escaping mechanisms pr
 ### Source: 
 https://christovitohidajat.medium.com/insecure-captcha-dvwa-hacking-for-unsafe-verification-process-8d0d938eb9e9
 
-### Security Level
-Low 🟡
+### Security Level: Low 🟡
 
 ### Payload Used
 Modified request parameter:
@@ -103,8 +99,7 @@ At the low security level, the CAPTCHA verification is implemented in two separa
 ### Explanation of why it failed at higher level
 At higher security levels, additional verification is introduced. The application checks whether the CAPTCHA was successfully completed before allowing the password change operation, preventing attackers from bypassing the verification step by simply modifying request parameters.
 
-### Security Level
-Medium 🟢
+### Security Level: Medium 🟢
 
 ### Payload Used
 Modified request parameters:
@@ -133,8 +128,7 @@ At the low security level, the CAPTCHA process relies only on the `step` paramet
 ### Explanation of why it failed at higher level
 At the medium security level, the developer attempted to introduce additional validation by using a `passed_captcha` variable. However, this variable is still stored on the client side and can be manipulated by the attacker. By setting `passed_captcha=true` in the request, the application incorrectly assumes the CAPTCHA was solved and allows the password change.
 
-### Security Level
-High 🔴
+### Security Level: High 🔴
 
 ### Payload Used
 Modified request parameters and header:
@@ -163,8 +157,7 @@ At the high security level, stronger validation is introduced. The application c
 
 ## 3. SQL Injection
 
-### Security Level: 
-Low 🟡
+### Security Level: Low 🟡
 
 ### Payload:
 ```
@@ -194,8 +187,7 @@ Because `'1'='1'` is always true, the database returns **all rows**, so multiple
 ### Explanation of why it failed at higher level:
 At higher security levels (Medium/High), DVWA applies stricter input handling e.g., validation and safer query parameters. These controls prevent special characters like `'` from changing the SQL syntax, so the injected condition cannot modify the query logic and the attack fails.
 
-### Security Level: 
-Medium 🟢
+### Security Level: Medium 🟢
 
 ### Payload:
 ```
@@ -220,8 +212,7 @@ Because the attacker cannot modify the input value, the SQL query cannot be mani
 ### Explanation of why it failed at higher level:
 Since the application restricts input to predefined values through the dropdown menu, it prevents malicious SQL payloads from being submitted. As a result, the attacker cannot alter the structure of the SQL query, and the injection attempt fails.
 
-### Security Level:
-High 🔴
+### Security Level: High 🔴
 
 ### Payload:
 ```
@@ -244,8 +235,7 @@ At the High security level, DVWA applies stronger protections to user input. The
 
 ## 4. Command Injection
 
-### Security Level: 
-Low 🟡
+### Security Level: Low 🟡
 
 ### Payload:
 ```
@@ -274,8 +264,7 @@ The application directly uses the user input in a system command. The semicolon 
 ### Explanation of why it failed at higher level:
 At higher security levels, the application filters or blocks special characters like `;`. Because of this, additional commands cannot be executed.
 
-### Security Level: 
-Medium 🟢
+### Security Level: Medium 🟢
 
 ### Payload:
 ```
@@ -304,8 +293,7 @@ At the Medium level, the application blocks some characters such as `;`, but oth
 ### Explanation of why it failed at higher level:
 At the High security level, stricter input validation is applied and more command operators are filtered, preventing additional commands from being executed.
 
-### Security Level: 
-High 🔴
+### Security Level: High 🔴
 
 ### Payload:
 ```
@@ -330,8 +318,7 @@ The application restricts the input and filters dangerous characters before exec
 
 ## 5. Cross-Site Request Forgery (CSRF)
 
-### Security Level:
-Low 🟡
+### Security Level: Low 🟡
 
 ### Payload:
 ```html
@@ -368,8 +355,7 @@ At the Low security level, DVWA does not verify the origin of the request. Since
 ### Explanation of why it failed at higher level:
 At higher security levels, DVWA introduces protections such as checking the HTTP Referer header and using CSRF tokens. These mechanisms ensure that requests originate from legitimate pages, preventing the malicious request from being processed.
 
-### Security Level:
-Medium 🟢
+### Security Level: Medium 🟢
 
 ### Payload:
 ```html
@@ -407,8 +393,7 @@ At the Low security level, the application does not verify the origin of the req
 ### Explanation of why it failed at higher level:
 At the Medium security level, DVWA checks the HTTP Referer header to ensure that the request originates from the DVWA application. Since the malicious request came from an external HTML page, the server rejected the request.
 
-### Security Level:
-High 🔴
+### Security Level: High 🔴
 
 ### Payload:
 ```html
@@ -448,8 +433,7 @@ At the High security level, DVWA requires a valid CSRF token to be included in t
 
 ## 6. File Inclusion
 
-### Security Level:
-Low 🟡
+### Security Level: Low 🟡
 
 ### Payload:
 ```
@@ -472,8 +456,7 @@ At the Low security level, the application directly includes the value provided 
 ### Explanation of why it failed at higher level:
 At higher security levels, DVWA restricts file inclusion to specific allowed files and sanitizes user input, preventing directory traversal attacks.
 
-### Security Level:
-Medium 🟢
+### Security Level: Medium 🟢
 
 ### Payload:
 ```
@@ -496,8 +479,7 @@ At the Medium security level, the application attempts to block directory traver
 ### Explanation of why it failed at higher level:
 At higher security levels, DVWA restricts file inclusion to a predefined set of files and performs stricter input validation, preventing directory traversal attacks.
 
-### Security Level:
-High 🔴
+### Security Level: High 🔴
 
 ### Payload:
 ```
@@ -522,8 +504,7 @@ Stronger implementations should strictly validate allowed file paths and disable
 
 ## 7. File Upload
 
-### Security Level:
-Low 🟡
+### Security Level: Low 🟡
 
 ### Payload:
 ```php
@@ -546,8 +527,7 @@ At the Low security level, the application does not validate the file type or ex
 ### Explanation of why it failed at higher level:
 At higher security levels, the application performs validation checks such as restricting allowed file extensions or verifying MIME types, which prevents uploading executable scripts like PHP files.
 
-### Security Level:
-Medium 🟢
+### Security Level: Medium 🟢
 
 ### Payload:
 shell.php.jpg
@@ -572,8 +552,7 @@ The application only checks the file extension and allows files ending in `.jpg`
 ### Explanation of why it failed at higher level:
 At higher security levels, the application performs stricter validation such as checking MIME types or verifying the file content, which prevents uploading files containing executable code.
 
-### Security Level:
-High 🔴
+### Security Level: High 🔴
 
 ### Payload:
 shell.php.jpg
@@ -600,8 +579,7 @@ Secure implementations verify file contents more strictly and prevent execution 
 
 ## 8. SQL Injection (Blind)
 
-### Security Level:
-Low 🟡
+### Security Level: Low 🟡
 
 ### Payload:
 ```
@@ -624,8 +602,7 @@ The application directly inserted the user input into the SQL query without prop
 ### Explanation of why it would fail at higher level:
 Higher security levels implement input sanitization and prepared statements to prevent malicious SQL logic from being injected. These mechanisms restrict query manipulation and block unauthorized database operations, preventing blind SQL injection attacks.
 
-### Security Level:
-Medium 🟢
+### Security Level: Medium 🟢
 
 ### Payload:
 ```
@@ -644,8 +621,7 @@ The application directly includes the user-supplied `id` parameter in the SQL qu
 ### Explanation of why it failed at higher level
 At higher security levels, the application sanitizes the input and restricts the `id` parameter to numeric values. Because the input is cast to an integer before the query is executed, any injected SQL logic is removed. As a result, payloads such as `1 AND 1=2` are interpreted simply as `1`, preventing the SQL injection from affecting the query.
 
-### Security Level:
-High 🔴
+### Security Level: High 🔴
 
 ### Payload:
 ```
@@ -666,8 +642,7 @@ Secure implementations validate and sanitize cookie inputs before using them in 
 
 ## 9. Weak Session IDs
 
-### Security Level:
-Low 🟡
+### Security Level: Low 🟡
 
 ### Payload:
 ```
@@ -687,8 +662,7 @@ The application generates session identifiers using a predictable incremental va
 ### Explanation of why it failed at higher level
 Secure implementations generate session identifiers using strong cryptographic randomness and enforce proper session management. This prevents attackers from predicting or brute-forcing session identifiers.
 
-### Security Level:
-Medium 🟢
+### Security Level: Medium 🟢
 
 ### Payload:
 ```
@@ -707,8 +681,7 @@ At the Medium security level, the application generates session identifiers usin
 ### Explanation of why it failed at higher level
 Secure implementations generate session identifiers using cryptographically secure random number generators. Random session tokens are extremely difficult to predict, preventing attackers from guessing valid session IDs.
 
-### Security Level:
-High 🔴
+### Security Level: High 🔴
 
 ### Payload:
 ```
@@ -729,8 +702,7 @@ At the High security level, the application relies on secure session management.
 
 ## 10. XSS (DOM)
 
-### Security Level:
-Low 🟡
+### Security Level: Low 🟡
 
 ### Payload:
 ```
@@ -749,8 +721,7 @@ The application reads the value of the `default` parameter directly from the URL
 ### Explanation of why it failed at higher level
 At higher security levels, the application validates or sanitizes the input before inserting it into the DOM. Potentially dangerous characters and script tags are filtered or encoded, preventing execution of injected JavaScript.
 
-### Security Level:
-Medium 🟢
+### Security Level: Medium 🟢
 
 ### Payload:
 ```
@@ -769,8 +740,7 @@ At the medium security level, the application blocks simple `<script>` tags but 
 ### Explanation of why it failed at higher level
 At higher security levels, the application applies stronger input validation and sanitization. Dangerous characters, tags, and event handlers are filtered or encoded before being inserted into the DOM, preventing execution of injected JavaScript.
 
-### Security Level:
-High 🔴
+### Security Level: High 🔴
 
 ### Payload Attempted:
 ```
@@ -791,8 +761,7 @@ At the high security level, the application restricts input to a predefined list
 
 ## 11. XSS (Reflected)
 
-### Security Level:
-Low 🟡
+### Security Level: Low 🟡
 
 ### Payload:
 ```
@@ -811,8 +780,7 @@ At the low security level, the application reflects the user input directly into
 ### Explanation of why it failed at higher level
 At higher security levels, the application performs input validation or output encoding to sanitize user input before displaying it. This prevents the browser from interpreting injected script tags as executable JavaScript.
 
-### Security Level:
-Medium 🟢
+### Security Level: Medium 🟢
 
 ### Payload:
 ```
@@ -831,8 +799,7 @@ At the medium security level, the application attempts to filter the `<script>` 
 ### Explanation of why it failed at higher level
 At higher security levels, the application performs stronger input validation and output encoding. Dangerous tags and event handlers are sanitized or escaped before being rendered in the browser, preventing the execution of injected JavaScript.
 
-### Security Level:
-High 🔴
+### Security Level: High 🔴
 
 ### Payload Attempted:
 ```
@@ -853,8 +820,7 @@ At the high security level, the application sanitizes user input before reflecti
 
 ## 12. XSS (Store)
 
-### Security Level:
-Low 🟡
+### Security Level: Low 🟡
 
 ### Payload:
 ```
@@ -874,8 +840,7 @@ At the low security level, the application stores user input in the database wit
 ### Explanation of why it failed at higher level
 At higher security levels, the application applies input validation and output encoding before storing or displaying user input. This prevents malicious scripts from being interpreted and executed by the browser.
 
-### Security Level:
-Medium 🟢
+### Security Level: Medium 🟢
 
 ### Payload:
 ```
@@ -894,8 +859,7 @@ At the medium security level, the application attempts to block the `<script>` t
 ### Explanation of why it failed at higher level
 At higher security levels, stronger input validation and output encoding are applied. Dangerous HTML tags and event handlers are filtered or escaped before being stored or rendered, preventing the execution of injected JavaScript.
 
-### Security Level:
-High 🔴
+### Security Level: High 🔴
 
 ### Payload:
 ```
@@ -913,8 +877,7 @@ Properly secured applications use strict input validation, output encoding, and 
 
 ## 13. CSP Bypass
 
-### Security Level:
-Low 🟡
+### Security Level: Low 🟡
 
 ### Payload:
 ```
@@ -938,8 +901,7 @@ At the low security level, the Content Security Policy allows scripts to be load
 ### Explanation of why it failed at higher level
 At higher security levels, the CSP policy restricts script sources to trusted domains and prevents loading scripts from arbitrary internal paths. File upload restrictions and path validation also prevent attackers from uploading executable scripts.
 
-### Security Level
-Medium 🟢
+### Security Level: Medium 🟢
 
 ### Payload Attempted
 ```
@@ -963,8 +925,7 @@ At the low security level, the Content Security Policy allows scripts to be load
 ### Explanation of why it failed at higher level
 At the medium security level, the application restricts uploads to image file extensions such as `.png` and `.jpeg`. Even though the uploaded file contains JavaScript code, the server serves it with an image MIME type `(image/png)`. Because the browser interprets the file as an image instead of a JavaScript resource, the script is not executed and no alert box appears.
 
-### Security Level
-High 🔴
+### Security Level: High 🔴
 
 ### Payload Attempted
 ```
@@ -990,8 +951,7 @@ At the high security level, the Content Security Policy is more restrictive and 
 
 ## 14. Java Script
 
-### Security Level:
-Low 🟡
+### Security Level: Low 🟡
 
 ### Payload:
 ```
@@ -1032,8 +992,7 @@ The application relies on **client-side JavaScript** to validate the phrase and 
 ### Explanation of why it would fail in a secure implementation
 In a secure design, validation and token verification should be handled **server-side**. Even if an attacker manipulates JavaScript in the browser, the server would still verify the correctness of the request before accepting it.
 
-### Security Level
-Medium 🟢
+### Security Level: Medium 🟢
 
 ### Payload Attempted
 ```
