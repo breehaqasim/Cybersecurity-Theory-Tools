@@ -18,7 +18,7 @@ Password: randompassword
 Authentication was bypassed and the application displayed the message **"Welcome to the password protected area admin' OR '1'='1"**, granting access to the protected area.
 
 ### Screenshot
-![Brute Force Low](screenshots/bruteforce-low.png)
+![Brute Force Low](screenshots/brute-force-low.png)
 
 ### Explanation of why it worked
 At the low security level, the application does not properly sanitize or validate user input before using it in the SQL query. By injecting the payload `admin' OR '1'='1`, the SQL condition always evaluates to true, allowing the attacker to bypass authentication without knowing the correct password.
