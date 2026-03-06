@@ -92,9 +92,11 @@ Medium 🟢
 ### Payload Used
 Modified request parameters:
 
-Edited the value from 1 to 2 and also inserted new line 
+Edited the value from 1 to 2 
 
 `<input type="hidden" name="step" value="2">`
+
+and also inserted new line below it
 
 `<input type="hidden" name="passed_captcha" value="true">`
 
