@@ -1,5 +1,31 @@
 # DVWA Security Lab Report
 
+## Brute Force
+
+##### Sources:  
+https://youtu.be/pwmGId999BM?si=-0stimlO5mv_vgnR
+https://medium.com/@waeloueslati18/exploring-dvwa-a-walkthrough-of-the-brute-force-challenge-part-1-d38241ee81da
+
+### Security Level
+Low 🟡
+
+### Payload Used
+Username: admin' OR '1'='1  
+Password: randompassword
+
+### Result
+Authentication was bypassed and the application displayed the message **"Welcome to the password protected area admin' OR '1'='1"**, granting access to the protected area.
+
+### Screenshot
+![Brute Force Low](screenshots/bruteforce-low.png)
+
+### Explanation of why it worked
+At the low security level, the application does not properly sanitize or validate user input before using it in the SQL query. By injecting the payload `admin' OR '1'='1`, the SQL condition always evaluates to true, allowing the attacker to bypass authentication without knowing the correct password.
+
+### Explanation of why it fails at higher levels
+At higher security levels, the application introduces protections such as input escaping, query validation, and additional authentication controls. These mechanisms prevent SQL injection payloads from altering the database query logic.
+
+
 ## SQL Injection
 
 ### Security Level: 
