@@ -1176,3 +1176,174 @@ If deployed publicly, attackers could exploit vulnerabilities to access sensitiv
 | CSP Bypass               | A05:2021 – Security Misconfiguration |
 | JavaScript Attacks       | A04:2021 – Insecure Design |
 | Insecure CAPTCHA         | A04:2021 – Insecure Design |
+
+# Bonus (+10 Marks): Deploy DVWA Behind Nginx Reverse Proxy with HTTPS
+
+---
+
+# 1. Deploy DVWA Behind an Nginx Reverse Proxy
+
+DVWA was initially running inside a Docker container and exposed on:
+
+```
+http://localhost:8080
+```
+
+To simulate a realistic deployment architecture, **Nginx was configured as a reverse proxy**.
+The reverse proxy forwards incoming requests from the client to the DVWA container.
+
+---
+
+### Nginx Configuration
+
+```
+events {}
+
+http {
+
+    server {
+        listen 80;
+
+        location / {
+            proxy_pass http://host.docker.internal:8080;
+        }
+    }
+
+    server {
+        listen 443 ssl;
+
+        ssl_certificate /etc/nginx/ssl/dvwa.crt;
+        ssl_certificate_key /etc/nginx/ssl/dvwa.key;
+
+        location / {
+            proxy_pass http://host.docker.internal:8080;
+        }
+    }
+
+}
+```
+
+This configuration enables:
+
+* HTTP traffic on **port 80**
+* HTTPS traffic on **port 443**
+* Forwarding of requests to the DVWA container
+
+---
+
+# 2. Implement HTTPS Using a Self-Signed Certificate
+
+To enable HTTPS encryption, a **self-signed SSL certificate** was generated using OpenSSL.
+
+### Generate Certificate
+
+```
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+-keyout ssl/dvwa.key \
+-out ssl/dvwa.crt
+```
+
+This command generates:
+
+```
+dvwa.key  → Private Key
+dvwa.crt  → SSL Certificate
+```
+
+The certificate and key were stored inside the `ssl` directory and mounted into the Nginx container.
+
+---
+
+###  Running the Nginx Reverse Proxy
+
+Nginx was started using Docker with the configuration and SSL files mounted.
+
+```
+docker run -d -p 80:80 -p 443:443 \
+-v C:\Users\breeh\Downloads\dvwa-nginx\nginx.conf:/etc/nginx/nginx.conf \
+-v C:\Users\breeh\Downloads\dvwa-nginx\ssl:/etc/nginx/ssl \
+nginx
+```
+
+After the container started successfully, DVWA became accessible through:
+
+```
+http://localhost
+https://localhost
+```
+
+### Verifying Running Containers
+
+The following command was used to verify that both **DVWA and Nginx containers were running**:
+
+```
+docker ps
+```
+
+![Running Docker Containers](screenshots/docker.png)
+
+This screenshot confirms:
+
+* The **DVWA container running on port 8080**
+* The **Nginx container exposing ports 80 and 443**
+* Nginx acting as a reverse proxy between the client and DVWA
+
+---
+
+# 3. HTTP Access
+
+When accessing DVWA through HTTP:
+
+```
+http://localhost
+```
+
+The browser loads the application but indicates that the connection is **not secure**.
+
+![DVWA HTTP](screenshots/http.png)
+
+### Observation
+
+HTTP traffic is transmitted **in plaintext**, meaning sensitive information such as login credentials and cookies could be intercepted by attackers.
+
+---
+
+# 4. HTTPS Access with Self-Signed Certificate
+
+When accessing:
+
+```
+https://localhost
+```
+
+the browser shows a warning because the certificate is **self-signed and not issued by a trusted Certificate Authority (CA)**.
+
+![HTTPS Warning](screenshots/https-1.png)
+
+After selecting:
+
+```
+Advanced → Continue to localhost
+```
+
+DVWA loads successfully over HTTPS.
+
+![DVWA HTTPS](screenshots/https-2.png)
+
+---
+
+# 5. Difference Between HTTP and HTTPS Traffic
+
+| Feature         | HTTP                       | HTTPS                           |
+| --------------- | -------------------------- | ------------------------------- |
+| Encryption      | No encryption              | Encrypted using TLS             |
+| Data Visibility | Plaintext                  | Encrypted                       |
+| Security        | Vulnerable to interception | Protected against eavesdropping |
+| Default Port    | 80                         | 443                             |
+
+### Key Difference
+
+* **HTTP traffic can be intercepted and read by attackers**
+* **HTTPS encrypts communication using TLS**, ensuring confidentiality and integrity of transmitted data.
+
+Even though a **self-signed certificate triggers a browser warning**, it still encrypts the communication channel.
