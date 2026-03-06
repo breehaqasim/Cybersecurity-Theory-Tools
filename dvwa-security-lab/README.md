@@ -94,10 +94,9 @@ Modified request parameters:
 
 Edited the value from 1 to 2 and also inserted new line 
 
-`
-<input type="hidden" name="step" value="2">
-<input type="hidden" name="passed_captcha" value="true">
-`
+`<input type="hidden" name="step" value="2">`
+
+`<input type="hidden" name="passed_captcha" value="true">`
 
 ### Result
 The password was successfully changed without completing the CAPTCHA challenge.
