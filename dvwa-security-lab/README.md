@@ -1,5 +1,15 @@
 # DVWA Security Lab Report
 
+## Environment Setup Description
+
+The testing environment was created using **Damn Vulnerable Web Application (DVWA)** running inside a **Docker container** on a local machine. Docker was used to isolate the vulnerable application from the host system while providing a controlled environment for security testing. The DVWA container was launched and exposed through **localhost:8080**, allowing the application to be accessed through a web browser.
+
+After starting the container, the DVWA database was initialized using the **Setup / Reset Database** option available in the application interface. The security level was configured through the **DVWA Security** panel and adjusted between **Low, Medium, and High** depending on the vulnerability being tested.
+
+Developer tools in the browser was used to inspect and modify HTTP requests during the testing process. The environment allowed safe experimentation with multiple web vulnerabilities including injection attacks, file inclusion, cross-site scripting (XSS), weak authentication mechanisms, and CAPTCHA bypass techniques.
+
+All testing was performed locally within the Docker environment to ensure that the experiments were conducted in a safe and controlled lab setup.
+
 ## 1. Brute Force
 
 ### Security Level: Low 🟡
