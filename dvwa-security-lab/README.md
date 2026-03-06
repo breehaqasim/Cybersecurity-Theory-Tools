@@ -32,7 +32,7 @@ Password: test
 The SQL injection payload failed and the application returned **"Username and/or password incorrect."**
 
 ### Screenshot
-![Brute Force Medium](screenshots/bruteforce-medium.png)
+![Brute Force Medium](screenshots/brute-force-medium.png)
 
 ### Explanation of why it worked at lower levels
 At the low security level, the application directly inserts user input into the SQL query without sanitization. This allows attackers to manipulate the query logic using SQL injection payloads such as `admin' OR '1'='1`.
@@ -40,6 +40,24 @@ At the low security level, the application directly inserts user input into the 
 ### Explanation of why it failed at higher level
 At the medium security level, the application sanitizes user input using escaping functions such as `mysql_real_escape_string`. This prevents special SQL characters from altering the query structure, blocking the SQL injection attempt.
 
+### Security Level
+High 🔴
+
+### Payload Used
+Username: admin' OR '1'='1  
+Password: test
+
+### Result
+The SQL injection attempt failed and the application returned **"Username and/or password incorrect."**
+
+### Screenshot
+![Brute Force High](screenshots/brute-force-high.png)
+
+### Explanation of why it worked at lower levels
+At the low security level, the application does not sanitize user input before placing it into the SQL query. This allows attackers to inject payloads such as `admin' OR '1'='1` to manipulate the query logic and bypass authentication.
+
+### Explanation of why it failed at higher level
+At the high security level, stronger input validation and escaping mechanisms prevent SQL injection from modifying the SQL query. Additionally, the application introduces delays between login attempts, which slows down automated attacks and further strengthens protection against brute force attempts.
 
 ## SQL Injection
 
