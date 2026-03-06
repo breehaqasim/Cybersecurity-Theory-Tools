@@ -59,6 +59,32 @@ At the low security level, the application does not sanitize user input before p
 ### Explanation of why it failed at higher level
 At the high security level, stronger input validation and escaping mechanisms prevent SQL injection from modifying the SQL query. Additionally, the application introduces delays between login attempts, which slows down automated attacks and further strengthens protection against brute force attempts.
 
+## Insecure CAPTCHA
+
+### Source: 
+https://christovitohidajat.medium.com/insecure-captcha-dvwa-hacking-for-unsafe-verification-process-8d0d938eb9e9
+
+### Security Level
+Low 🟡
+
+### Payload Used
+Modified request parameter:
+step=2&password_new=test&password_conf=test&Change=Change
+
+### Result
+The password was changed successfully without completing the CAPTCHA challenge.
+
+### Screenshot
+![Insecure CAPTCHA Low](screenshots/insecure-captcha-low.png)
+
+### Explanation of why it worked at lower levels
+At the low security level, the CAPTCHA verification is implemented in two separate steps. The server assumes that the user will complete the CAPTCHA first (step=1) before proceeding to the password change confirmation (step=2). However, the server only checks the `step` parameter and does not verify whether the CAPTCHA was actually solved. By directly submitting `step=2`, the CAPTCHA verification process can be completely bypassed.
+
+### Explanation of why it failed at higher level
+At higher security levels, additional verification is introduced. The application checks whether the CAPTCHA was successfully completed before allowing the password change operation, preventing attackers from bypassing the verification step by simply modifying request parameters.
+
+
+
 ## SQL Injection
 
 ### Security Level: 
