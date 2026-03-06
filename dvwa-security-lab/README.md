@@ -1127,7 +1127,7 @@ No, HTTPS does not prevent these attacks. HTTPS only encrypts data transmitted b
 ### What risks exist if this application is deployed publicly?
 If deployed publicly, attackers could exploit vulnerabilities to access sensitive data, modify the database, or gain administrative control. This could lead to data breaches, system compromise, and reputational damage. Public exposure significantly increases the likelihood of automated attacks.
 
-### Map each vulnerability to its OWASP Top 10 category. LEFT
+### Map each vulnerability to its OWASP Top 10 category.
 
 | Vulnerability            | OWASP Top 10 Category |
 |--------------------------|-----------------------|
@@ -1142,3 +1142,5 @@ If deployed publicly, attackers could exploit vulnerabilities to access sensitiv
 | XSS (Reflected)          | A03:2021 – Injection |
 | XSS (Stored)             | A03:2021 – Injection |
 | CSP Bypass               | A05:2021 – Security Misconfiguration |
+| JavaScript Attacks       | A04:2021 – Insecure Design |
+| Insecure CAPTCHA         | A04:2021 – Insecure Design |
