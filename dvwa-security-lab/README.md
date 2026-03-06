@@ -21,6 +21,25 @@ At the low security level, the application does not properly sanitize or validat
 ### Explanation of why it fails at higher levels
 At higher security levels, the application introduces protections such as input escaping, query validation, and additional authentication controls. These mechanisms prevent SQL injection payloads from altering the database query logic.
 
+### Security Level
+Medium 🟢
+
+### Payload Used
+Username: admin' OR '1'='1  
+Password: test
+
+### Result
+The SQL injection payload failed and the application returned **"Username and/or password incorrect."**
+
+### Screenshot
+![Brute Force Medium](screenshots/bruteforce-medium.png)
+
+### Explanation of why it worked at lower levels
+At the low security level, the application directly inserts user input into the SQL query without sanitization. This allows attackers to manipulate the query logic using SQL injection payloads such as `admin' OR '1'='1`.
+
+### Explanation of why it failed at higher level
+At the medium security level, the application sanitizes user input using escaping functions such as `mysql_real_escape_string`. This prevents special SQL characters from altering the query structure, blocking the SQL injection attempt.
+
 
 ## SQL Injection
 
